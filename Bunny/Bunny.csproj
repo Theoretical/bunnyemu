@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{39E45FCF-E876-4F93-A1A1-4DF67665FFB6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bunny</RootNamespace>
+    <AssemblyName>Bunny</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.3.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Program Files\MySQL\MySQL Connector Net 6.3.6\Assemblies\v2.0\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Channels\Channel.cs" />
+    <Compile Include="Channels\ChannelTraits.cs" />
+    <Compile Include="Core\Client.cs" />
+    <Compile Include="Core\Configuration.cs" />
+    <Compile Include="Core\MssqlDatabase.cs" />
+    <Compile Include="Core\ExpManager.cs" />
+    <Compile Include="Core\Globals.cs" />
+    <Compile Include="Core\IDatabase.cs" />
+    <Compile Include="Core\Log.cs" />
+    <Compile Include="Core\MySQLDatabase.cs" />
+    <Compile Include="Core\Program.cs" />
+    <Compile Include="Channels\ChannelList.cs" />
+    <Compile Include="Core\MUID.cs" />
+    <Compile Include="Enums\Channel.cs" />
+    <Compile Include="Enums\Clan.cs" />
+    <Compile Include="Enums\Item.cs" />
+    <Compile Include="Enums\Packet.cs" />
+    <Compile Include="Enums\Player.cs" />
+    <Compile Include="Enums\Stages.cs" />
+    <Compile Include="GameTypes\Assassination.cs" />
+    <Compile Include="GameTypes\BaseGametype.cs" />
+    <Compile Include="GameTypes\Berserker.cs" />
+    <Compile Include="GameTypes\Callbacks.cs" />
+    <Compile Include="GameTypes\Deathmatch.cs" />
+    <Compile Include="GameTypes\Duel.cs" />
+    <Compile Include="GameTypes\Quest.cs" />
+    <Compile Include="GameTypes\TeamDeathmatch.cs" />
+    <Compile Include="GameTypes\TeamDeathmatchExtreme.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\ItemList.cs" />
+    <Compile Include="Network\TcpServer.cs" />
+    <Compile Include="Network\UdpServer.cs" />
+    <Compile Include="Packet\Assembled\AgentPackets.cs" />
+    <Compile Include="Packet\Assembled\Battle.cs" />
+    <Compile Include="Packet\Assembled\ChannelPackets.cs" />
+    <Compile Include="Packet\Assembled\ClanPackets.cs" />
+    <Compile Include="Packet\Assembled\Match.cs" />
+    <Compile Include="Packet\Assembled\StagePackets.cs" />
+    <Compile Include="Packet\Disassemble\Agent.cs" />
+    <Compile Include="Packet\Disassemble\Channel.cs" />
+    <Compile Include="Packet\Disassemble\Clan.cs" />
+    <Compile Include="Packet\Disassemble\Item.cs" />
+    <Compile Include="Packet\Disassemble\Login.cs" />
+    <Compile Include="Packet\Disassemble\Misc.cs" />
+    <Compile Include="Packet\Disassemble\StageHandler.cs" />
+    <Compile Include="Packet\Manager.cs" />
+    <Compile Include="Packet\PacketCrypt.cs" />
+    <Compile Include="Packet\PacketReader.cs" />
+    <Compile Include="Packet\PacketWriter.cs" />
+    <Compile Include="Players\AccountInfo.cs" />
+    <Compile Include="Players\CharacterInfo.cs" />
+    <Compile Include="Players\ClanInfo.cs" />
+    <Compile Include="Players\ClanWarHandler.cs" />
+    <Compile Include="Players\Player.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quest\NPCInfo.cs" />
+    <Compile Include="Quest\Quest Structures.cs" />
+    <Compile Include="Quest\Scenario.cs" />
+    <Compile Include="Stages\DuelQueue.cs" />
+    <Compile Include="Stages\Map.cs" />
+    <Compile Include="Stages\MapManager.cs" />
+    <Compile Include="Stages\RelayMaps.cs" />
+    <Compile Include="Stages\Stage.cs" />
+    <Compile Include="Stages\StageList.cs" />
+    <Compile Include="Stages\StageTraits.cs" />
+    <Compile Include="Stages\WorldItemManager.cs" />
+    <Compile Include="Utility\EventManager.cs" />
+    <Compile Include="Utility\LockFreeQueue.cs" />
+    <Compile Include="Utility\Pair.cs" />
+    <Compile Include="Utility\Tuple.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

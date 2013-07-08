@@ -1,0 +1,852 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Assassination.cs" caret="7997" fromTop="6" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Core/f:Client.cs" caret="1986" fromTop="17" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Berserker.cs" caret="2792" fromTop="27" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:Player.cs" caret="1361" fromTop="19" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Channels/f:Channel.cs" caret="2793" fromTop="35" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Stages/f:StageList.cs" caret="1156" fromTop="38" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Stages/f:Stage.cs" caret="400" fromTop="17" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="2501" fromTop="34" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Callbacks.cs" caret="7367" fromTop="1" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:TeamDeathmatch.cs" caret="280" fromTop="9" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:CharacterInfo.cs" caret="1019" fromTop="30" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Stages/f:RelayMaps.cs" caret="257" fromTop="11" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Stages/f:StageTraits.cs" caret="612" fromTop="18" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:TeamDeathmatchExtreme.cs" caret="367" fromTop="15" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Stages/f:DuelQueue.cs" caret="294" fromTop="11" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Disassemble/f:Login.cs" caret="3674" fromTop="25" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Assembled/f:Match.cs" caret="974" fromTop="23" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Enums/f:Packet.cs" caret="10011" fromTop="16" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Quest/f:Quest Structures.cs" caret="1527" fromTop="51" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:BaseGametype.cs" caret="0" fromTop="0" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Core/f:Globals.cs" caret="893" fromTop="28" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Quest/f:NPCInfo.cs" caret="2710" fromTop="12" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Core/f:Program.cs" caret="705" fromTop="0" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Duel.cs" caret="8418" fromTop="0" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Quest.cs" caret="539" fromTop="19" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Deathmatch.cs" caret="3908" fromTop="22" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Assembled/f:StagePackets.cs" caret="734" fromTop="20" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Disassemble/f:StageHandler.cs" caret="15493" fromTop="11" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Enums/f:Stages.cs" caret="247" fromTop="16" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Assembled/f:Battle.cs" caret="2708" fromTop="25" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="1459" fromTop="32" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="735" fromTop="17" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="266" fromTop="8" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Channels/f:Channel.cs" caret="2793" fromTop="35" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="2175" fromTop="35" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="1851" fromTop="24" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="2191" fromTop="34" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="2529" fromTop="35" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Players/f:ClanWarHandler.cs" caret="2501" fromTop="34" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Callbacks.cs" caret="7581" fromTop="18" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Assembled/f:StagePackets.cs" caret="13577" fromTop="33" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Assembled/f:StagePackets.cs" caret="13207" fromTop="33" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Assembled/f:StagePackets.cs" caret="12999" fromTop="26" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Quest/f:Quest Structures.cs" caret="1001" fromTop="21" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:TeamDeathmatch.cs" caret="280" fromTop="9" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Stages/f:DuelQueue.cs" caret="263" fromTop="11" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Duel.cs" caret="2377" fromTop="18" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Duel.cs" caret="5345" fromTop="18" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Duel.cs" caret="7735" fromTop="18" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Duel.cs" caret="8131" fromTop="27" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Assembled/f:Match.cs" caret="1076" fromTop="25" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Assembled/f:Match.cs" caret="974" fromTop="23" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Enums/f:Packet.cs" caret="9982" fromTop="13" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Disassemble/f:StageHandler.cs" caret="21622" fromTop="26" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Packet/d:Disassemble/f:StageHandler.cs" caret="21825" fromTop="31" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Quest/f:Quest Structures.cs" caret="462" fromTop="17" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Quest/f:Quest Structures.cs" caret="0" fromTop="0" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:Quest/f:Quest Structures.cs" caret="1536" fromTop="51" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Quest.cs" caret="585" fromTop="21" />
+      <File id="39E45FCF-E876-4F93-A1A1-4DF67665FFB6/d:GameTypes/f:Quest.cs" caret="539" fromTop="19" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="Attribute`0" priority="2" />
+      <Item value="public" priority="118" />
+      <Item value="readonly" priority="4" />
+      <Item value="byte" priority="11" />
+      <Item value="false" priority="28" />
+      <Item value="InitializeAttribute`0" priority="2" />
+      <Item value="_stage" priority="0" />
+      <Item value="stage" priority="24" />
+      <Item value="delegate" priority="2" />
+      <Item value="var" priority="46" />
+      <Item value="from" priority="3" />
+      <Item value="MethodInfo`0" priority="0" />
+      <Item value="Assembly`0" priority="0" />
+      <Item value="where" priority="7" />
+      <Item value="AppDomain`0" priority="0" />
+      <Item value="types" priority="4" />
+      <Item value="Pair" priority="8" />
+      <Item value="select" priority="7" />
+      <Item value="p" priority="3" />
+      <Item value="foreach" priority="5" />
+      <Item value="method" priority="5" />
+      <Item value="assemblies" priority="1" />
+      <Item value="methods" priority="2" />
+      <Item value="static" priority="38" />
+      <Item value="void" priority="37" />
+      <Item value="InitCallback`0" priority="0" />
+      <Item value="if" priority="49" />
+      <Item value="AssemblyTrademarkAttribute`0" priority="0" />
+      <Item value="Type`0" priority="0" />
+      <Item value="typeof" priority="2" />
+      <Item value="null" priority="38" />
+      <Item value="continue" priority="3" />
+      <Item value="attribute" priority="8" />
+      <Item value="callback" priority="9" />
+      <Item value="methods2" priority="0" />
+      <Item value="namespace" priority="0" />
+      <Item value="Bunny" priority="0" />
+      <Item value="Utility" priority="0" />
+      <Item value="Dictionary" priority="0" />
+      <Item value="m_textWriter" priority="0" />
+      <Item value="Console`0" priority="7" />
+      <Item value="_textWriter" priority="0" />
+      <Item value="_streamWriter" priority="0" />
+      <Item value="Initialize`0" priority="0" />
+      <Item value="Delegate`0" priority="0" />
+      <Item value="let" priority="3" />
+      <Item value="T1`0" priority="1" />
+      <Item value="as" priority="2" />
+      <Item value="in" priority="3" />
+      <Item value="results" priority="3" />
+      <Item value="pair" priority="1" />
+      <Item value="list" priority="0" />
+      <Item value="Log`0" priority="11" />
+      <Item value="return" priority="29" />
+      <Item value="true" priority="13" />
+      <Item value="new" priority="50" />
+      <Item value="Pair&lt;T1,T2&gt;" priority="0" />
+      <Item value="Initialize" priority="0" />
+      <Item value="bool" priority="9" />
+      <Item value="catch" priority="1" />
+      <Item value="Exception`0" priority="1" />
+      <Item value="Callbacks" priority="0" />
+      <Item value="Callback`0" priority="0" />
+      <Item value="class" priority="13" />
+      <Item value="UInt32`0" priority="11" />
+      <Item value="MUID`0" priority="4" />
+      <Item value="LowId" priority="1" />
+      <Item value="first" priority="0" />
+      <Item value="GetHashCode`0" priority="0" />
+      <Item value="HighId" priority="1" />
+      <Item value="second" priority="0" />
+      <Item value="override" priority="11" />
+      <Item value="uid2" priority="2" />
+      <Item value="uid1" priority="1" />
+      <Item value="private" priority="16" />
+      <Item value="_muidCounter" priority="1" />
+      <Item value="_secondCounter" priority="1" />
+      <Item value="MUID" priority="0" />
+      <Item value="obj" priority="3" />
+      <Item value="Muid`0" priority="16" />
+      <Item value="uid" priority="3" />
+      <Item value="Muid" priority="1" />
+      <Item value="a" priority="0" />
+      <Item value="UriIdnScope`0" priority="0" />
+      <Item value="string" priority="10" />
+      <Item value="List" priority="11" />
+      <Item value="Channel`0" priority="4" />
+      <Item value="List&lt;Channel&gt;" priority="0" />
+      <Item value="_channels" priority="0" />
+      <Item value="CrossAppDomainDelegate`0" priority="0" />
+      <Item value="ChannelTraits`0" priority="4" />
+      <Item value="Channels" priority="4" />
+      <Item value="traits" priority="43" />
+      <Item value="channel" priority="5" />
+      <Item value="_traits" priority="25" />
+      <Item value="lock" priority="18" />
+      <Item value="Channel" priority="2" />
+      <Item value="using" priority="14" />
+      <Item value="System" priority="2" />
+      <Item value="IO" priority="0" />
+      <Item value="Xml" priority="1" />
+      <Item value="Serialization" priority="0" />
+      <Item value="short" priority="2" />
+      <Item value="int" priority="26" />
+      <Item value="Configuration`0" priority="2" />
+      <Item value="StreamReader`0" priority="0" />
+      <Item value="Database`0" priority="4" />
+      <Item value="AgentConfig`0" priority="0" />
+      <Item value="ItemsConfig`0" priority="0" />
+      <Item value="Config`0" priority="2" />
+      <Item value="Globals`0" priority="6" />
+      <Item value="try" priority="0" />
+      <Item value="ListenSocket" priority="4" />
+      <Item value="Socket" priority="0" />
+      <Item value="AddressFamily`0" priority="0" />
+      <Item value="Dgram" priority="0" />
+      <Item value="Udp" priority="0" />
+      <Item value="IPAddress`0" priority="0" />
+      <Item value="const" priority="0" />
+      <Item value="UInt16`0" priority="1" />
+      <Item value="e" priority="0" />
+      <Item value="buffer" priority="1" />
+      <Item value="Length" priority="1" />
+      <Item value="None" priority="0" />
+      <Item value="ep" priority="0" />
+      <Item value="UdpServer`0" priority="0" />
+      <Item value="while" priority="1" />
+      <Item value="Threading" priority="0" />
+      <Item value="Thread`0" priority="1" />
+      <Item value="Client`0" priority="29" />
+      <Item value="StagePackets`0" priority="10" />
+      <Item value="PacketWriter`0" priority="9" />
+      <Item value="Operation`0" priority="8" />
+      <Item value="Encrypt" priority="6" />
+      <Item value="packet" priority="55" />
+      <Item value="client" priority="81" />
+      <Item value="this" priority="11" />
+      <Item value="Lobby" priority="1" />
+      <Item value="Character" priority="0" />
+      <Item value="player" priority="1" />
+      <Item value="c" priority="25" />
+      <Item value="StageList`0" priority="1" />
+      <Item value="Stage`0" priority="11" />
+      <Item value="_stages" priority="3" />
+      <Item value="object" priority="11" />
+      <Item value="Clients" priority="0" />
+      <Item value="_objectLock" priority="4" />
+      <Item value="handler" priority="0" />
+      <Item value="pReader" priority="0" />
+      <Item value="prop" priority="0" />
+      <Item value="command" priority="8" />
+      <Item value="szUser" priority="0" />
+      <Item value="szPassword" priority="0" />
+      <Item value="aid" priority="0" />
+      <Item value="nAID" priority="0" />
+      <Item value="nIndex" priority="0" />
+      <Item value="ClientPlayer" priority="7" />
+      <Item value="ClientFlags" priority="0" />
+      <Item value="Login" priority="0" />
+      <Item value="Player" priority="0" />
+      <Item value="Outside" priority="0" />
+      <Item value="CharacterInfo" priority="1" />
+      <Item value="PacketHandler" priority="1" />
+      <Item value="PacketFlags`0" priority="1" />
+      <Item value="PacketReader`0" priority="1" />
+      <Item value="Predicate" priority="0" />
+      <Item value="previous" priority="0" />
+      <Item value="next" priority="1" />
+      <Item value="stages" priority="6" />
+      <Item value="info" priority="10" />
+      <Item value="index" priority="0" />
+      <Item value="Convert`0" priority="3" />
+      <Item value="else" priority="16" />
+      <Item value="prev" priority="1" />
+      <Item value="page" priority="2" />
+      <Item value="StageTraits`0" priority="1" />
+      <Item value="stageTraits" priority="17" />
+      <Item value="Int32`0" priority="8" />
+      <Item value="Team`0" priority="4" />
+      <Item value="ObjectStageState`0" priority="0" />
+      <Item value="toAll" priority="0" />
+      <Item value="packetReader" priority="3" />
+      <Item value="ObjectStageGameType`0" priority="3" />
+      <Item value="EventManager`0" priority="1" />
+      <Item value="time" priority="2" />
+      <Item value="Byte`0" priority="1" />
+      <Item value="Unload`0" priority="0" />
+      <Item value="Stages" priority="1" />
+      <Item value="ObjectLock" priority="0" />
+      <Item value="Packet" priority="0" />
+      <Item value="operation" priority="0" />
+      <Item value="stageId" priority="3" />
+      <Item value="message" priority="5" />
+      <Item value="charInfo" priority="1" />
+      <Item value="reader" priority="5" />
+      <Item value="EventArgs`0" priority="0" />
+      <Item value="Refresh`0" priority="0" />
+      <Item value="enum" priority="0" />
+      <Item value="StageState`0" priority="0" />
+      <Item value="State" priority="3" />
+      <Item value="Prepare" priority="1" />
+      <Item value="Play" priority="0" />
+      <Item value="Battle" priority="1" />
+      <Item value="DateTime`0" priority="1" />
+      <Item value="RoundState`0" priority="0" />
+      <Item value="uint" priority="2" />
+      <Item value="float" priority="2" />
+      <Item value="XmlReader`0" priority="0" />
+      <Item value="XmlTextReader`0" priority="0" />
+      <Item value="switch" priority="2" />
+      <Item value="case" priority="6" />
+      <Item value="break" priority="5" />
+      <Item value="_multTable" priority="2" />
+      <Item value="for" priority="1" />
+      <Item value="i" priority="4" />
+      <Item value="double" priority="1" />
+      <Item value="_expTable" priority="0" />
+      <Item value="exp" priority="3" />
+      <Item value="ExpTable" priority="1" />
+      <Item value="level" priority="2" />
+      <Item value="ExpManager`0" priority="3" />
+      <Item value="virtual" priority="6" />
+      <Item value="args" priority="2" />
+      <Item value="uids" priority="1" />
+      <Item value="victim" priority="7" />
+      <Item value="Exp`0" priority="0" />
+      <Item value="killer" priority="12" />
+      <Item value="CurrentStage" priority="11" />
+      <Item value="Battle`0" priority="2" />
+      <Item value="EventWaitHandle`0" priority="0" />
+      <Item value="OnGameKill`0" priority="0" />
+      <Item value="uidKiller" priority="0" />
+      <Item value="s" priority="0" />
+      <Item value="uidStage" priority="1" />
+      <Item value="SpawnType`0" priority="1" />
+      <Item value="protected" priority="0" />
+      <Item value="pages" priority="0" />
+      <Item value="start" priority="0" />
+      <Item value="count" priority="1" />
+      <Item value="curr" priority="0" />
+      <Item value="Settings`0" priority="0" />
+      <Item value="default" priority="1" />
+      <Item value="clients" priority="3" />
+      <Item value="playerCount" priority="0" />
+      <Item value="sendTo" priority="0" />
+      <Item value="charName" priority="0" />
+      <Item value="GameInProgress" priority="2" />
+      <Item value="TimeSpan`0" priority="1" />
+      <Item value="GameTimer" priority="2" />
+      <Item value="Free" priority="0" />
+      <Item value="Spawn`0" priority="0" />
+      <Item value="players" priority="3" />
+      <Item value="WaitQueue" priority="2" />
+      <Item value="IDisposable`0" priority="0" />
+      <Item value="base" priority="4" />
+      <Item value="Timer`0" priority="0" />
+      <Item value="MySql.Data" priority="0" />
+      <Item value="MySql" priority="2" />
+      <Item value="Data" priority="2" />
+      <Item value="MySqlClient" priority="2" />
+      <Item value="MySqlConnection`0" priority="0" />
+      <Item value="_mysqlConnection" priority="3" />
+      <Item value="MySqlConnection" priority="0" />
+      <Item value="connectionString" priority="0" />
+      <Item value="_sqlConnection" priority="0" />
+      <Item value="MySqlCommand`0" priority="0" />
+      <Item value="ref" priority="0" />
+      <Item value="act" priority="2" />
+      <Item value="MySqlParameter`0" priority="0" />
+      <Item value="MySqlDbType`0" priority="0" />
+      <Item value="Execute`0" priority="0" />
+      <Item value="GetIdentity`0" priority="0" />
+      <Item value="CharacterInfo`0" priority="0" />
+      <Item value="nSex" priority="0" />
+      <Item value="AddItem`0" priority="0" />
+      <Item value="charId" priority="2" />
+      <Item value="melee" priority="0" />
+      <Item value="nCostume" priority="0" />
+      <Item value="primary" priority="0" />
+      <Item value="secondary" priority="0" />
+      <Item value="custom1" priority="0" />
+      <Item value="custom2" priority="0" />
+      <Item value="UpdateSlot`0" priority="0" />
+      <Item value="melee_slot" priority="0" />
+      <Item value="malechest" priority="0" />
+      <Item value="malelegs" priority="0" />
+      <Item value="ii" priority="1" />
+      <Item value="BaseGametype`0" priority="1" />
+      <Item value="TeamDeathmatch`0" priority="1" />
+      <Item value="currentStage" priority="0" />
+      <Item value="Challenger" priority="1" />
+      <Item value="_gameType" priority="0" />
+      <Item value="GameType" priority="0" />
+      <Item value="GameTypes" priority="1" />
+      <Item value="IsTeam`0" priority="2" />
+      <Item value="GameOver`0" priority="2" />
+      <Item value="do" priority="0" />
+      <Item value="Initiailized" priority="1" />
+      <Item value="redTeam" priority="0" />
+      <Item value="char" priority="0" />
+      <Item value="OnInitialStart`0" priority="1" />
+      <Item value="_killThread" priority="1" />
+      <Item value="MapManager`0" priority="0" />
+      <Item value="Scores" priority="1" />
+      <Item value="Stage" priority="0" />
+      <Item value="ItemSpawn`0" priority="0" />
+      <Item value="item" priority="1" />
+      <Item value="ItemSpawns" priority="0" />
+      <Item value="ps" priority="4" />
+      <Item value="Duel`0" priority="0" />
+      <Item value="Loaded" priority="0" />
+      <Item value="Entered" priority="0" />
+      <Item value="RequestedInfo" priority="0" />
+      <Item value="InGame" priority="0" />
+      <Item value="Spawned" priority="0" />
+      <Item value="LateJoined" priority="0" />
+      <Item value="Kills" priority="0" />
+      <Item value="Deaths" priority="0" />
+      <Item value="red" priority="1" />
+      <Item value="blue" priority="0" />
+      <Item value="RelayMaps`0" priority="0" />
+      <Item value="ClanWar`0" priority="5" />
+      <Item value="List&lt;ClanWar&gt;" priority="0" />
+      <Item value="_doublesLadder" priority="6" />
+      <Item value="clan" priority="3" />
+      <Item value="clanwar" priority="4" />
+      <Item value="_team" priority="1" />
+      <Item value="Team" priority="0" />
+      <Item value="_triplesLadder" priority="0" />
+      <Item value="_quadraLadder" priority="0" />
+      <Item value="packetWriter" priority="0" />
+      <Item value="ushort" priority="4" />
+      <Item value="Quest`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.AppDomain">
+      <Item value="CurrentDomain" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.AppDomain">
+      <Item value="GetAssemblies`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Reflection.Assembly">
+      <Item value="GetType`0" priority="0" />
+      <Item value="GlobalAssemblyCache" priority="0" />
+      <Item value="GetTypes`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Type">
+      <Item value="GetMethods`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Core.Log">
+      <Item value="Write`0" priority="14" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Reflection.MethodInfo">
+      <Item value="Name" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Utility.ReflectorWrapper">
+      <Item value="FindAllMethods`2" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Reflection.AssemblyTrademarkAttribute">
+      <Item value="GetCustomAttribute`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Console">
+      <Item value="Out" priority="0" />
+      <Item value="Write`0" priority="2" />
+      <Item value="WriteLine`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Attribute">
+      <Item value="GetCustomAttribute`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Delegate">
+      <Item value="CreateDelegate`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
+      <Item value="Add`0" priority="12" />
+      <Item value="TrueForAll`0" priority="1" />
+      <Item value="Remove`0" priority="5" />
+      <Item value="FindAll`0" priority="3" />
+      <Item value="ForEach`0" priority="10" />
+      <Item value="Count" priority="16" />
+      <Item value="Find`0" priority="4" />
+      <Item value="RemoveAt`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Utility.Pair`2">
+      <Item value="First" priority="2" />
+      <Item value="Second" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Void">
+      <Item value="ToString`0" priority="0" />
+      <Item value="GetType`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="ToList`1" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Managers.MUID">
+      <Item value="LowId" priority="1" />
+      <Item value="HighId" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.UInt32">
+      <Item value="MaxValue" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Managers.Muid">
+      <Item value="LowId" priority="0" />
+      <Item value="HighId" priority="0" />
+      <Item value="Equals`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Threading.Interlocked">
+      <Item value="Increment`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Empty" priority="0" />
+      <Item value="Format`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Managers.Channel">
+      <Item value="GetTraits`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Managers.ChannelTraits">
+      <Item value="Equals`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.Serialization.XmlSerializer">
+      <Item value="Deserialize`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Core.Configuration">
+      <Item value="Load`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Hare.Globals">
+      <Item value="Configuration" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Hare.Config">
+      <Item value="Load`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Net.Sockets.AddressFamily">
+      <Item value="InterNetwork" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Sockets.Socket">
+      <Item value="Bind`0" priority="0" />
+      <Item value="IOControl`0" priority="0" />
+      <Item value="SendTo`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Net.IPAddress">
+      <Item value="Any" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hare.Config">
+      <Item value="Locator" priority="1" />
+      <Item value="Server" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hare.Config+LocatorConfig">
+      <Item value="Port" priority="0" />
+      <Item value="Ip" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Exception">
+      <Item value="Message" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hare.Config+ServerConfig">
+      <Item value="Name" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Hare.UdpServer">
+      <Item value="Initialize`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Threading.Thread">
+      <Item value="Sleep`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hare.Configuration">
+      <Item value="Locator" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hare.Configuration+LocatorConfig">
+      <Item value="Ip" priority="0" />
+      <Item value="Port" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Enums.Operation">
+      <Item value="StageMaster" priority="0" />
+      <Item value="StageLeave" priority="1" />
+      <Item value="StageList" priority="0" />
+      <Item value="StageResponseSettings" priority="0" />
+      <Item value="StageChat" priority="0" />
+      <Item value="GameDie" priority="0" />
+      <Item value="GameLevelUp" priority="0" />
+      <Item value="StageFinish" priority="0" />
+      <Item value="LadderLaunch" priority="0" />
+      <Item value="QuestRequestStageLevel" priority="0" />
+      <Item value="QuestResponseStageLevel" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Packet.PacketWriter">
+      <Item value="Write`0" priority="49" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Stages.Stage">
+      <Item value="GetTraits`0" priority="21" />
+      <Item value="Leave`0" priority="1" />
+      <Item value="Settings`0" priority="0" />
+      <Item value="Chat`0" priority="0" />
+      <Item value="ObjectLock" priority="2" />
+      <Item value="Join`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Stages.StageTraits">
+      <Item value="StageId" priority="10" />
+      <Item value="MaxPlayers" priority="5" />
+      <Item value="Master" priority="8" />
+      <Item value="Players" priority="21" />
+      <Item value="WinThePoint" priority="1" />
+      <Item value="Name" priority="1" />
+      <Item value="State" priority="3" />
+      <Item value="Gametype" priority="4" />
+      <Item value="Map" priority="4" />
+      <Item value="ForcedEntry" priority="1" />
+      <Item value="Password" priority="1" />
+      <Item value="Level" priority="1" />
+      <Item value="RoundCount" priority="3" />
+      <Item value="Time" priority="2" />
+      <Item value="TeamKill" priority="0" />
+      <Item value="TeamBalanced" priority="1" />
+      <Item value="Ruleset" priority="4" />
+      <Item value="Round" priority="0" />
+      <Item value="DuelQueue" priority="15" />
+      <Item value="CurrentRound" priority="0" />
+      <Item value="CurrentMap" priority="2" />
+      <Item value="Locked" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Core.Client">
+      <Item value="ClientPlayer" priority="66" />
+      <Item value="Send`0" priority="7" />
+      <Item value="ClientFlags" priority="0" />
+      <Item value="PeerEnd" priority="0" />
+      <Item value="Equals`0" priority="0" />
+      <Item value="GetChannel`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Players.Player">
+      <Item value="PlayerId" priority="11" />
+      <Item value="PlayerStage" priority="13" />
+      <Item value="PlayerChannel" priority="8" />
+      <Item value="PlayerLocation" priority="4" />
+      <Item value="PlayerCharacter" priority="19" />
+      <Item value="StageIndex" priority="2" />
+      <Item value="PlayerState" priority="1" />
+      <Item value="PlayerTeam" priority="2" />
+      <Item value="PlayerAccount" priority="0" />
+      <Item value="PlayerStats" priority="9" />
+      <Item value="ClanWar" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Packet.Assembled.StagePackets">
+      <Item value="ResponseStageMaster`0" priority="3" />
+      <Item value="ResponseStageLeave`0" priority="0" />
+      <Item value="ResponseStageList`0" priority="0" />
+      <Item value="ResponseSettings`0" priority="2" />
+      <Item value="ResponseStageChat`0" priority="0" />
+      <Item value="ResponseObjectCacheExclusive`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Channels.Channel">
+      <Item value="PlayerList`0" priority="0" />
+      <Item value="Refresh`0" priority="3" />
+      <Item value="Leave`0" priority="2" />
+      <Item value="GetTraits`0" priority="0" />
+      <Item value="StageList`0" priority="3" />
+      <Item value="StageExists`0" priority="0" />
+      <Item value="Remove`0" priority="0" />
+      <Item value="Add`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Stages.StageList">
+      <Item value="Remove`0" priority="0" />
+      <Item value="GetList`0" priority="0" />
+      <Item value="Find`0" priority="3" />
+      <Item value="CreateClanwar`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Enums.ObjectCache">
+      <Item value="New" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Packet.HandlerDelegate">
+      <Item value="Processor" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.SqlClient.SqlCommand">
+      <Item value="Parameters" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.SqlClient.SqlParameterCollection">
+      <Item value="AddWithValue`0" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Network.TcpServer">
+      <Item value="Remove`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Enums.PacketFlags">
+      <Item value="Stage" priority="0" />
+      <Item value="Character" priority="0" />
+      <Item value="None" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Convert">
+      <Item value="ToBase64CharArray`0" priority="0" />
+      <Item value="ToByte`0" priority="2" />
+      <Item value="ToInt32`0" priority="3" />
+      <Item value="DBNull" priority="0" />
+      <Item value="ToUInt32`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="Length" priority="0" />
+      <Item value="Substring`0" priority="1" />
+      <Item value="StartsWith`0" priority="0" />
+      <Item value="IndexOf`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Players.CharacterInfo">
+      <Item value="Level" priority="3" />
+      <Item value="DuelRank" priority="3" />
+      <Item value="Rank" priority="0" />
+      <Item value="Kills" priority="1" />
+      <Item value="Deaths" priority="1" />
+      <Item value="Xp" priority="0" />
+      <Item value="CharacterId" priority="0" />
+      <Item value="Name" priority="1" />
+      <Item value="EquippedItems" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Packet.PacketWriter">
+      <Item value="Null" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Packet.PacketReader">
+      <Item value="ReadMuid`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Channels.Channel">
+      <Item value="Refresh`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Utility.EventManager">
+      <Item value="AddCallback`0" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Byte">
+      <Item value="MaxValue" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Channels.ChannelList">
+      <Item value="Find`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Channels.ChannelTraits">
+      <Item value="ChannelId" priority="0" />
+      <Item value="Playerlist" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Int32">
+      <Item value="Parse`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Enums.StageState">
+      <Item value="Standby" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Players.GameStats">
+      <Item value="InGame" priority="2" />
+      <Item value="Spawned" priority="1" />
+      <Item value="Kills" priority="2" />
+      <Item value="Deaths" priority="0" />
+      <Item value="LateJoined" priority="3" />
+      <Item value="RequestedInfo" priority="1" />
+      <Item value="Entered" priority="0" />
+      <Item value="Loaded" priority="0" />
+      <Item value="Reset`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="Now" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Enums.RoundState">
+      <Item value="Prepare" priority="0" />
+      <Item value="Free" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlTextReader">
+      <Item value="Read`0" priority="0" />
+      <Item value="Name" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Core.ExpManager">
+      <Item value="Load`0" priority="0" />
+      <Item value="Exp`0" priority="0" />
+      <Item value="Level`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Packet.Assembled.Battle">
+      <Item value="GameDie`0" priority="0" />
+      <Item value="GameLevelUp`0" priority="0" />
+      <Item value="DuelQueue`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.TimeSpan">
+      <Item value="FromSeconds`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.TimeSpan">
+      <Item value="TotalMilliseconds" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Timers.Timer">
+      <Item value="Elapsed" priority="0" />
+      <Item value="Enabled" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Queue`1">
+      <Item value="Dequeue`0" priority="2" />
+      <Item value="Count" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MySql.Data.MySqlClient.MySqlConnection">
+      <Item value="Open`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Core.Database">
+      <Item value="GetAccount`0" priority="0" />
+      <Item value="CreateCharacter`0" priority="0" />
+      <Item value="GetCharacter`0" priority="0" />
+      <Item value="Deletetem`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Players.AccountInfo">
+      <Item value="AccountId" priority="0" />
+      <Item value="Access" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MySql.Data.MySqlClient.MySqlCommand">
+      <Item value="ExecuteNonQuery`0" priority="0" />
+      <Item value="ExecuteScalar`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MySql.Data.MySqlClient.MySqlDataReader">
+      <Item value="Close`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Enums.ItemSlotType">
+      <Item value="primary_slot" priority="0" />
+      <Item value="secondary_slot" priority="0" />
+      <Item value="custom1_slot" priority="0" />
+      <Item value="chest_slot" priority="0" />
+      <Item value="legs_slot" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Enums.ObjectStageGameType">
+      <Item value="Gladiator" priority="0" />
+      <Item value="TeamDeathMatch" priority="1" />
+      <Item value="TeamDeathMatchExtreme" priority="0" />
+      <Item value="Quest" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Stages.QueueInfo">
+      <Item value="Champion" priority="2" />
+      <Item value="Challenger" priority="6" />
+      <Item value="QueueLength" priority="0" />
+      <Item value="Victories" priority="1" />
+      <Item value="Clone`0" priority="0" />
+      <Item value="WaitQueue" priority="1" />
+      <Item value="AddToQueue`0" priority="0" />
+      <Item value="NewChallenger`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Items.Item">
+      <Item value="RentHour" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.GameTypes.BaseGametype">
+      <Item value="GameLeaveBattle`0" priority="1" />
+      <Item value="IsDuel`0" priority="0" />
+      <Item value="IsTeam`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Core.Globals">
+      <Item value="Maps" priority="0" />
+      <Item value="StageCounter" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Stages.MapManager">
+      <Item value="GetHashCode`0" priority="0" />
+      <Item value="GetMap`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Bunny.Enums.Team">
+      <Item value="Red" priority="1" />
+      <Item value="Blue" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Core.Muid">
+      <Item value="LowId" priority="0" />
+      <Item value="HighId" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Utility.Callback">
+      <Item value="ToString`0" priority="0" />
+      <Item value="Method" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Stages.Map">
+      <Item value="TeamItems" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Enums.ItemSpawn">
+      <Item value="Taken" priority="1" />
+      <Item value="NextSpawn" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Core.MuidWrapper">
+      <Item value="GetNext`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Bunny.Players.ClanWar">
+      <Item value="Team" priority="1" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

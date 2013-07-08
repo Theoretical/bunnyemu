@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+	<Database>
+		<Host>TRINITYWORKSTAT\SQLEXPRESS</Host>
+		<DatabaseName>EmuDB</DatabaseName>
+		<WindowsAuth>True</WindowsAuth>
+		<User>emu</User>
+		<Pass>emudb</Pass>
+	</Database>
+	
+	<TCP>
+		<Port>6000</Port>
+		<Backlog>4</Backlog>
+		<ReceiveBuffer>8192</ReceiveBuffer>
+		<SendBuffer>8192</SendBuffer>
+	</TCP>
+	
+	<UDP>
+		<Port>7777</Port>
+		<Buffer>1024</Buffer>
+	</UDP>
+	
+	<Locator>
+		<IP>127.0.0.1</IP>
+		<Port>8900</Port>
+	</Locator>
+	
+	<Agent>
+		<IP>192.168.1.1</IP>
+		<TCPPort>5100</TCPPort>
+		<UDPPort>7778</UDPPort>
+	</Agent>
+	
+	<Server>
+		<ID>1</ID>
+		<UserCount>2000</UserCount>
+		<!-- Mode can be: match, clan, quest, developer -->
+		<Mode>Quest</Mode>
+		<Survival>False</Survival>
+		<DuelTourney>True</DuelTourney>
+		<Name>Bunny Emulator</Name>
+		<UseMD5>True</UseMD5>
+	</Server>
+	
+	<Client>
+		<!-- 2007: 56, 2008: 57, IJJI: 58 -->
+		<Version>58</Version>
+		<UseCRC>False</UseCRC>
+		<Filelist>4081868661</Filelist>
+	</Client>
+	
+	<Ping>
+		<Delay>15</Delay>
+		<Timeout>0</Timeout>
+	</Ping>
+	
+	<Character>
+		<StartingBounty>1000</StartingBounty>
+		<MaxItems>30</MaxItems>
+		<EquipSameItems>False</EquipSameItems>
+	</Character>
+	
+	<Items>
+		<MaxWeight>100</MaxWeight>
+		<UseBounty>False</UseBounty>
+	</Items>
+</Config>
