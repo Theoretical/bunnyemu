@@ -278,14 +278,5 @@ namespace Bunny.Enums
         AdminAssassin = 0x21,
         LadderPrepare = 0x62A,
         LadderLaunch = 0x62B,
-        QuestRequestStageLevel = 0x17D5,
-        QuestResponseStageLevel = 0x17D6,
-        QuestRequestSlotInfo = 0x5213,
-        QuestResponseSlotInfo = 0x5214,
-        QuestGameInfo = 0x17A3,
-        MatchRequestUsePotion = 0x73A,
-        MatchRequestUseTrap = 0x5FF,
-        MatchRequestUseTrap2 = 0x600,
-
     }
 }
