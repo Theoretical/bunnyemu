@@ -19,13 +19,13 @@ namespace Bunny.Packet.Assembled
             }
         }
 
-        public static void RelayPeer (Client client, Bunny.Utility.Tuple<Muid,Muid,Muid> uids)
+        public static void RelayPeer (Client client, Tuple<Muid,Muid,Muid> uids)
         {
             using (var packet = new PacketWriter(Operation.AgentRelayPeer, CryptFlags.Encrypt))
             {
-                packet.Write(uids.First);
-                packet.Write(uids.Second);
-                packet.Write(uids.Third);
+                packet.Write(uids.Item1);
+                packet.Write(uids.Item2);
+                packet.Write(uids.Item3);
 
                 client.Send(packet);
             }

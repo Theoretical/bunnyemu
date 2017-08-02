@@ -12,10 +12,7 @@ namespace Bunny.Core
         public string ClanName;
         public Client ClanMaster;
         public Int32 RequestId;
-        public Pair<Client, bool> Member1;
-        public Pair<Client, bool> Member2;
-        public Pair<Client, bool> Member3;
-        public Pair<Client, bool> Member4;
+        public List<Pair<Client, bool>> Members;
     }
 
     class PendingClanWarRequest

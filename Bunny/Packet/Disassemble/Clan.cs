@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Timers;
 using Bunny.Core;
 using Bunny.Enums;
@@ -23,16 +24,15 @@ namespace Bunny.Packet.Disassemble
             var member3 = packetReader.ReadString();
             var member4 = packetReader.ReadString();
 
-            var members = new List<Client>();
-            members.Add(TcpServer.GetClientFromName(member1));
-            members.Add(TcpServer.GetClientFromName(member2));
-            members.Add(TcpServer.GetClientFromName(member3));
-            members.Add(TcpServer.GetClientFromName(member4));
+            var members = new List<Pair<Client, bool>>();
+            members.Add(new Pair<Client, bool>(TcpServer.GetClientFromName(member1), false));
+            members.Add(new Pair<Client, bool>(TcpServer.GetClientFromName(member2), false));
+            members.Add(new Pair<Client, bool>(TcpServer.GetClientFromName(member3), false));
+            members.Add(new Pair<Client, bool>(TcpServer.GetClientFromName(member4), false));
+
 
             if (!Globals.AcceptedString.IsMatch(clanName))
-            {
                 return;
-            }
 
             if (Globals.GunzDatabase.ClanExists(clanName))
             {
@@ -42,7 +42,7 @@ namespace Bunny.Packet.Disassemble
 
             foreach (var member in members)
             {
-                if (member == null || Globals.GunzDatabase.IsInClan(member))
+                if (member == null || Globals.GunzDatabase.IsInClan(member.First))
                 {
                     ClanPackets.ResponseCreateClan(client, Results.ClanUserAlreadyInAClan, reqeuest);
                     return;
@@ -53,16 +53,21 @@ namespace Bunny.Packet.Disassemble
             pendingClan.ClanMaster = client;
             pendingClan.ClanName = clanName;
             pendingClan.RequestId = reqeuest;
-            pendingClan.Member1 = new Pair<Client, bool>(members[0], false);
-            pendingClan.Member2 = new Pair<Client, bool>(members[1], false);
-            pendingClan.Member3 = new Pair<Client, bool>(members[2], false);
-            pendingClan.Member4 = new Pair<Client, bool>(members[3], false);
+            foreach (var member in members)
+            {
+                pendingClan.Members.Add(member);
+            }
 
             lock (Globals.PendingClans)
                 Globals.PendingClans.Add(pendingClan);
 
             ClanPackets.ResponseCreateClan(client, Results.Accepted, reqeuest);
-            ClanPackets.AskAgreement(members, reqeuest, clanName, client.GetMuid(), client.GetCharacter().Name);   
+
+            var clientList = new List<Client>();
+            foreach (var m in members)
+                clientList.Add(m.First);
+
+            ClanPackets.AskAgreement(clientList, reqeuest, clanName, client.GetMuid(), client.GetCharacter().Name);   
     
             var responsetimer = new Timer(30000);
             responsetimer.Elapsed += (s, o) => CancelRequest(client, pendingClan, responsetimer);
@@ -105,62 +110,41 @@ namespace Bunny.Packet.Disassemble
             {
                 lock (Globals.PendingClans)
                     Globals.PendingClans.Remove(pendingClan);
+
                 return;
             }
 
-            if (pendingClan.Member1.First.GetCharacter().Name == name)
+            foreach(var member in pendingClan.Members)
             {
-                pendingClan.Member1.Second = true;
-            }
-            if (pendingClan.Member2.First.GetCharacter().Name == name)
-            {
-                pendingClan.Member2.Second = answer;
-            }
-            if (pendingClan.Member3.First.GetCharacter().Name == name)
-            {
-                pendingClan.Member3.Second = answer;
-            }
-            if (pendingClan.Member4.First.GetCharacter().Name == name)
-            {
-                pendingClan.Member4.Second = answer;
+                if (member.First.GetCharacter().Name == name)
+                    member.Second = answer;
             }
 
-
-            if (pendingClan.Member1.Second && pendingClan.Member2.Second && pendingClan.Member3.Second && pendingClan.Member4.Second)
+            var isAccepted = pendingClan.Members.All(m => m.Second == true);
+            if (isAccepted)
             {
-                int clanId = Globals.GunzDatabase.CreateClan(pendingClan.ClanName, pendingClan.ClanMaster, pendingClan.Member1.First,
-                                                 pendingClan.Member2.First, pendingClan.Member3.First,
-                                                 pendingClan.Member4.First);
+                int clanId = Globals.GunzDatabase.CreateClan(pendingClan.ClanName, pendingClan.ClanMaster, pendingClan);
 
                 ClanPackets.ResponseAagreedCreateClan(pendingClan);
+                pendingClan.ClanMaster.GetCharacter().ClanId = clanId;
 
-                    pendingClan.ClanMaster.GetCharacter().ClanId = clanId;
-                    pendingClan.Member1.First.GetCharacter().ClanId = clanId;
-                    pendingClan.Member2.First.GetCharacter().ClanId = clanId;
-                    pendingClan.Member3.First.GetCharacter().ClanId = clanId;
-                    pendingClan.Member4.First.GetCharacter().ClanId = clanId;
-
-                    pendingClan.ClanMaster.GetCharacter().ClanName = pendingClan.ClanName;
-                    pendingClan.Member1.First.GetCharacter().ClanName = pendingClan.ClanName;
-                    pendingClan.Member2.First.GetCharacter().ClanName = pendingClan.ClanName;
-                    pendingClan.Member3.First.GetCharacter().ClanName = pendingClan.ClanName;
-                    pendingClan.Member4.First.GetCharacter().ClanName = pendingClan.ClanName;
-                
+                foreach (var member in pendingClan.Members)
+                {
+                    member.First.GetCharacter().ClanId = clanId;
+                    member.First.GetCharacter().ClanName = pendingClan.ClanName;
+                }               
 
                 lock (Globals.PendingClans)
                     Globals.PendingClans.Remove(pendingClan);
 
                 ClanPackets.SendMemberList(pendingClan.ClanMaster);
-                ClanPackets.SendMemberList(pendingClan.Member1.First);
-                ClanPackets.SendMemberList(pendingClan.Member2.First);
-                ClanPackets.SendMemberList(pendingClan.Member3.First);
-                ClanPackets.SendMemberList(pendingClan.Member4.First);
-
                 ClanPackets.UpdateClanCharInfo(pendingClan.ClanMaster);
-                ClanPackets.UpdateClanCharInfo(pendingClan.Member1.First);
-                ClanPackets.UpdateClanCharInfo(pendingClan.Member2.First);
-                ClanPackets.UpdateClanCharInfo(pendingClan.Member3.First);
-                ClanPackets.UpdateClanCharInfo(pendingClan.Member4.First);
+                foreach (var member in pendingClan.Members)
+                {
+                    ClanPackets.SendMemberList(member.First);
+                    ClanPackets.UpdateClanCharInfo(member.First);
+                }
+
             }
         }
 

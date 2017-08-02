@@ -13,7 +13,7 @@ namespace Bunny.Core
 {
     class MySQLDatabase : IDatabase
     {
-        private MySqlConnection _sqlConnection;
+        private string _connectionString;
 
         public bool Initialize()
         {
@@ -25,9 +25,12 @@ namespace Bunny.Core
                     Globals.Config.Database.DatabaseName
                     );
 
-                _sqlConnection = new MySqlConnection(connectionString);
-                _sqlConnection.Open();
-                return true;
+                _connectionString = connectionString;
+                using (var sqlConnection = new MySqlConnection(connectionString))
+                {
+                    sqlConnection.Open();
+                    return true;
+                }
             }
             catch (Exception e)
             {
@@ -35,60 +38,22 @@ namespace Bunny.Core
                 return false;
             }
         }
-        public void Execute(string szQuery)
+
+        public int GetIdentity()
         {
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (var command = new MySqlCommand(szQuery, _sqlConnection))
-                    command.ExecuteNonQuery();
-            }
-        }
-        public void Execute(string szQuery, ArrayList pArray)
-        {
-            lock (_sqlConnection)
-            {
-                using (var command = new MySqlCommand(szQuery, _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("SELECT @@identity", conn))
                 {
                     using (var reader = command.ExecuteReader())
                     {
                         if (reader == null)
-                            return;
+                            return 0;
 
-                        while (reader.Read())
-                            for (int i = 0; i < reader.FieldCount; ++i)
-                                pArray.Add(reader.IsDBNull(i) ? 0 : reader[i]);
+                        reader.Read();
+                        return Convert.ToInt32(reader[0]);
                     }
-                }
-            }
-        }
-        public int GetQuery(string szQuery)
-        {
-            lock (_sqlConnection)
-            {
-                using (var command = new MySqlCommand(szQuery, _sqlConnection))
-                    return Convert.ToInt32(command.ExecuteScalar());
-            }
-        }
-        public object GetQueryScalar(string szQuery)
-        {
-            lock (_sqlConnection)
-            {
-                using (var command = new MySqlCommand(szQuery, _sqlConnection))
-                    return command.ExecuteScalar();
-            }
-        }
-        public int GetIdentity(string szQuery)
-        {
-            lock (_sqlConnection)
-            {
-                using (var command = new MySqlCommand(szQuery, _sqlConnection))
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader == null)
-                        return 0;
-
-                    reader.Read();
-                    return Convert.ToInt32(reader[0]);
                 }
             }
         }
@@ -97,13 +62,32 @@ namespace Bunny.Core
         #region Modules
         public bool AccountExists(string user)
         {
-            return GetQuery("SELECT COUNT(AID) FROM account WHERE UserID='" + user + "'") == 1;
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT COUNT(AID) FROM account WHERE UserID=@user", conn))
+                {
+                    cmd.Parameters.AddWithValue("@user", user);
+                    return Convert.ToInt32(cmd.ExecuteScalar()) == 1;
+                }
+            }
         }
+
         public void CreateAccount(string user, string password, ref AccountInfo accountInfo)
         {
-            Execute(
-                string.Format("INSERT INTO account (userid, ugradeid, pgradeid, name, password) VALUES ('{0}', 0, 0, 'Bob', '{1}')",
-                              user, password));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("INSERT INTO account(userid, ugradeid, pgradeid, name, password) VALUES (@user, @ugradeid, @pgradeid, @name, @password)", conn))
+                {
+                    cmd.Parameters.AddWithValue("user", user);
+                    cmd.Parameters.AddWithValue("ugradeid", UGradeId.Registered);
+                    cmd.Parameters.AddWithValue("pgradeid", PGradeId.Free);
+                    cmd.Parameters.AddWithValue("name", user);
+                    cmd.Parameters.AddWithValue("password", password);
+                    cmd.ExecuteNonQuery();
+                }
+            }
             GetAccount(user, password, ref accountInfo);
 
         }
@@ -112,9 +96,10 @@ namespace Bunny.Core
             if (accountInfo == null)
                 accountInfo = new AccountInfo();
 
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (var command = new MySqlCommand("SELECT aid,ugradeid,pgradeid from account WHERE userid=@user AND password=@pass", _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("SELECT aid,ugradeid,pgradeid from account WHERE userid=@user AND password=@pass", conn))
                 {
                     command.Parameters.AddWithValue("@user", szUser);
                     command.Parameters.AddWithValue("@pass", szPassword);
@@ -140,9 +125,10 @@ namespace Bunny.Core
         }
         public List<Pair<string, byte>> GetCharacterList(Int32 aid)
         {
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (var command = new MySqlCommand("SELECT Name,Level FROM `character` WHERE AID=@aid ORDER BY CharNum ASC LIMIT 4", _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("SELECT Name,Level FROM `character` WHERE AID=@aid ORDER BY CharNum ASC LIMIT 4", conn))
                 {
                     command.Parameters.AddWithValue("@aid", aid);
 
@@ -177,9 +163,10 @@ namespace Bunny.Core
             var femalechest = new int[] { 21501, 21501, 21501, 21501, 21501, 21501 };
             var femalelegs = new int[] { 23501, 23501, 23501, 23501, 23501, 23501 };
 
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (var command = new MySqlCommand("insert into `character` (aid,charnum,name,sex,hair,face) values (@AID,@CharNum,@Name,@Sex,@hair,@face)", _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("insert into `character` (aid,charnum,name,sex,hair,face) values (@AID,@CharNum,@Name,@Sex,@hair,@face)", conn))
                 {
                     command.Parameters.AddWithValue("@AID", aid);
                     command.Parameters.AddWithValue("@CharNum", nCharNumber);
@@ -190,15 +177,20 @@ namespace Bunny.Core
 
                     command.ExecuteNonQuery();
 
-                    var charId = GetIdentity("select @@identity");
+                    var charId = GetIdentity();
+
                     var id = AddItem(charId, melee[nCostume]);
                     UpdateSlot(charId, ItemSlotType.melee_slot, id);
+
                     id = AddItem(charId, primary[nCostume]);
                     UpdateSlot(charId, ItemSlotType.primary_slot, id);
+
                     id = AddItem(charId, secondary[nCostume]);
                     UpdateSlot(charId, ItemSlotType.secondary_slot, id);
+
                     id = AddItem(charId, custom1[nCostume]);
                     UpdateSlot(charId, ItemSlotType.custom1_slot, id);
+
                     id = AddItem(charId, custom2[nCostume]);
                     UpdateSlot(charId, ItemSlotType.custom2_slot, id);
 
@@ -206,6 +198,7 @@ namespace Bunny.Core
                     {
                         id = AddItem(charId, malechest[nCostume]);
                         UpdateSlot(charId, ItemSlotType.chest_slot, id);
+
                         id = AddItem(charId, malelegs[nCostume]);
                         UpdateSlot(charId, ItemSlotType.legs_slot, id);
                     }
@@ -213,6 +206,7 @@ namespace Bunny.Core
                     {
                         id = AddItem(charId, femalechest[nCostume]);
                         UpdateSlot(charId, ItemSlotType.chest_slot, id);
+
                         id = AddItem(charId, femalelegs[nCostume]);
                         UpdateSlot(charId, ItemSlotType.legs_slot, id);
                     }
@@ -222,9 +216,10 @@ namespace Bunny.Core
         }
         public void UpdateIndexes(Int32 aid)
         {
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (var command = new MySqlCommand("SELECT Name,Level FROM cCharacter` WHERE AID=@aid ORDER BY CharNum ASC LIMIT 4", _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("SELECT Name,Level FROM `character` WHERE AID=@aid ORDER BY CharNum ASC LIMIT 4", conn))
                 {
                     command.Parameters.AddWithValue("@aid", aid);
                     using (var reader = command.ExecuteReader())
@@ -232,27 +227,44 @@ namespace Bunny.Core
                         if (reader == null)
                             return;
 
-                        var ii = new List<int>();
+                        var characterList = new List<int>();
                         for (var i = 0; reader.Read(); ++i)
-                            ii.Add(Convert.ToInt32(reader[0]));
+                            characterList.Add(Convert.ToInt32(reader[0]));
 
                         reader.Close();
 
-                        for (var i = 0; i < ii.Count; ++i)
-                            Execute(string.Format("update `character` set CharNum={0} where cid={1}", i, ii[i]));
+                        for (var i = 0; i < characterList.Count; ++i)
+                        {
+                            using (var cmd = new MySqlCommand("update `character` set charnum=@charnum where cid=@cid", conn))
+                            {
+                                cmd.Parameters.AddWithValue("@charnum", i);
+                                cmd.Parameters.AddWithValue("@cid", characterList[i]);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
                     }
                 }
             }
         }
         public void UpdateBp(Int32 cid, Int32 newBounty)
         {
-            Execute(string.Format("UPDATE `character` SET BP={0} WHERE CID={1}", newBounty, cid));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var command = new MySqlCommand("UPDATE `character` SET bp=@bp where cid=@cid", conn))
+                {
+                    command.Parameters.AddWithValue("@bp", newBounty);
+                    command.Parameters.AddWithValue("@cid", cid);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
         public bool GetCharacter(Int32 aid, byte nIndex, CharacterInfo charInfo)
         {
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (var command = new MySqlCommand("SELECT * FROM `character` WHERE AID=@aid AND CharNum=@index", _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("SELECT * FROM `character` WHERE AID=@aid AND CharNum=@index", conn))
                 {
                     command.Parameters.AddWithValue("@aid", aid);
                     command.Parameters.AddWithValue("@index", nIndex);
@@ -282,34 +294,55 @@ namespace Bunny.Core
                         charInfo.Deaths = Convert.ToInt32(reader["DeathCount"]);
                         reader.Close();
 
-                        var items = new ArrayList();
-
-                        Execute("SELECT head_slot,chest_slot,hands_slot,legs_slot,Feet_slot,fingerl_slot,fingerr_slot,melee_slot,primary_slot,secondary_slot,custom1_slot,custom2_slot,avatar_slot,community1_slot,community2_slot,longbuff1_slot,longbuff2_slot FROM `character` WHERE CID=" + charInfo.CharacterId, items);
-                        for (int i = 0; i < 17; i++)
+                        using (var cmd = new MySqlCommand("SELECT head_slot,chest_slot,hands_slot,legs_slot,Feet_slot,fingerl_slot,fingerr_slot,melee_slot,primary_slot,secondary_slot,custom1_slot,custom2_slot,avatar_slot,community1_slot,community2_slot,longbuff1_slot,longbuff2_slot FROM `character` WHERE CID=@cid", conn))
                         {
-                            charInfo.EquippedItems[i] = new Item();
-                            charInfo.EquippedItems[i].ItemCid = Convert.ToInt32(items[i]);
-                            charInfo.EquippedItems[i].RentHour = 525600;
+                            cmd.Parameters.AddWithValue("@cid", charInfo.CharacterId);
+                            using (var itemReader = cmd.ExecuteReader())
+                            {
+                                while (itemReader.Read())
+                                {
+                                    for (int i = 0; i < reader.FieldCount; ++i)
+                                    {
+                                        charInfo.EquippedItems[i] = new Item();
+                                        charInfo.EquippedItems[i].ItemCid = Convert.ToInt32(itemReader.IsDBNull(i) ? 0 : itemReader[i]);
+                                        charInfo.EquippedItems[i].RentHour = 525600;
+                                    }
+
+                                }
+                            }
                         }
 
-
-                        var clanInfo = new ArrayList();
-                        Execute("SELECT CLID,Grade,ContPoint FROM clanmember WHERE CID=" + charInfo.CharacterId, clanInfo);
-                        if (clanInfo.Count > 0)
+                        using (var clanCmd = new MySqlCommand("SELECT CLID,Grade,ContPoint FROM clanmember WHERE CID=@cid", conn))
                         {
-                            charInfo.ClanId = (Int32)clanInfo[0] < 0 ? 0 : (Int32)clanInfo[0];
-                            charInfo.ClanGrade = (ClanGrade)Convert.ToInt32(clanInfo[1]);
-                            charInfo.ClanPoint = Convert.ToInt16(clanInfo[2]);
+                            clanCmd.Parameters.AddWithValue("@cid", charInfo.CharacterId);
+                            using (var clanReader = clanCmd.ExecuteReader())
+                            {
+                                while (clanReader.Read())
+                                {
+                                    if (clanReader.FieldCount > 0)
+                                    {
+                                        charInfo.ClanId = Convert.ToInt32(clanReader.IsDBNull(0) ? 0 : clanReader[0]);
+                                        charInfo.ClanGrade = (ClanGrade)Convert.ToInt32(clanReader[1]);
+                                        charInfo.ClanPoint = Convert.ToInt16(clanReader[2]);
+                                    }
 
-
-                            charInfo.ClanName = Convert.ToString(GetQueryScalar("SELECT Name FROM clan WHERE CLID=" + charInfo.ClanId));
+                                }
+                            }
                         }
 
-                        command.CommandText = "SELECT ItemID,CIID,RentHourPeriod,quantity FROM characteritem WHERE CID=" + charInfo.CharacterId;
-                        reader.Close();
-                        using (var dataReader = command.ExecuteReader())
+                        if (charInfo.ClanId > 0)
                         {
-                            if (dataReader != null)
+                            using (var nameCmd = new MySqlCommand("SELECT Name FROM clan WHERE CLID=@clid", conn))
+                            {
+                                nameCmd.Parameters.AddWithValue("@clid", charInfo.ClanId);
+                                charInfo.ClanName = Convert.ToString(nameCmd.ExecuteScalar());
+                            }
+                        }
+
+                        using (var itemCmd = new MySqlCommand("SELECT ItemID,CIID,RentHourPeriod,quantity FROM characteritem WHERE CID=@cid", conn))
+                        {
+                            itemCmd.Parameters.AddWithValue("@cid", charInfo.CharacterId);
+                            using (var dataReader = itemCmd.ExecuteReader())
                             {
                                 while (dataReader.Read())
                                 {
@@ -323,6 +356,7 @@ namespace Bunny.Core
                                 }
                             }
                         }
+
                         for (var i = 0; i < 12; i++)
                         {
                             var item = charInfo.Items.Find(ii => ii.ItemCid == charInfo.EquippedItems[i].ItemCid);
@@ -333,91 +367,243 @@ namespace Bunny.Core
                 }
             }
         }
+
         public int GetCid(Int32 aid, int marker)
         {
-            return GetQuery(string.Format("SELECT CID FROM `character` WHERE CharNum={0} AND AID={1}", marker, aid));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT CID FROM `character` WHERE CharNum=@num AND AID=@aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@num", marker);
+                    cmd.Parameters.AddWithValue("@aid", aid);
+                    return Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
         }
+
         public int GetCharacterCount(Int32 aid)
         {
-            return GetQuery(string.Format("SELECT COUNT(AID) FROM `character` WHERE AID={0}", aid));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT COUNT(AID) from `character` where AID=@aid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@aid", aid);
+                    return Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
         }
+
         public bool CharacterExists(string name)
         {
-            return GetQuery("SELECT COUNT(Name) FROM `character` WHERE Name='" + name + "'") > 0;
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT COUNT(CID) from `character` where name=@name", conn))
+                {
+                    cmd.Parameters.AddWithValue("@name", name);
+                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                }
+            }
         }
+
         public void DeleteCharacter(Int32 aid, Int32 cid)
         {
-            Execute("DELETE FROM `character` WHERE CID=" + cid);
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("DELETE from `character` where CID=@cid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@cid", cid);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
             UpdateIndexes(aid);
         }
+
         public int AddItem(Int32 cid, Int32 itemid, Int32 count = 0)
         {
-            Execute(string.Format("INSERT INTO characteritem (CID,ItemID,RegDate,Quantity) VALUES ({0},{1},CURDATE(), {2})", cid, itemid, count));
-            return GetIdentity(string.Format("select @@identity"));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("INSERT INTO characteritem (CID,ItemID,RegDate,Quantity) VALUES (@cid, @itemid, CURDATE(), @count)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@cid", cid);
+                    cmd.Parameters.AddWithValue("@itemid", itemid);
+                    cmd.Parameters.AddWithValue("@count", count);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            return GetIdentity();
         }
-        public void Deletetem(Int32 ciid)
+
+        public void DeleteItem(Int32 ciid)
         {
-            Execute(string.Format("DELETE FROM characteritem WHERE CIID={0}", ciid));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("DELETE from `characteritem` where ciid=@ciid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@ciid", ciid);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
+
         public void UpdateSlot(Int32 cid, ItemSlotType slot, Int32 itemid)
         {
-            Execute(string.Format("UPDATE `character` SET {0}={1} WHERE CID={2}", slot, itemid, cid));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand($"UPDATE `character` SET {slot}=@itemid WHERE CID=@cid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@itemid", itemid);
+                    cmd.Parameters.AddWithValue("@cid", cid);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
+
         public void UpdateLevel(Int32 cid, UInt32 xp, Int32 level)
         {
-            Execute(string.Format("UPDATE `character` SET XP={0},Level={1} WHERE CID={2}", xp, level, cid));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("UPDATE `character` SET XP=@xp,Level=@level WHERE CID=@cid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@xp", xp);
+                    cmd.Parameters.AddWithValue("@level", level);
+                    cmd.Parameters.AddWithValue("@cid", cid);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
+
         public bool IsInClan(Client client)
         {
-            return GetQuery("SELECT COUNT(CID) FROM clanmember WHERE CID=" + client.GetCharacter().CharacterId) > 0;
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT COUNT(CID) FROM clanmember WHERE CID=@cid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@cid", client.GetCharacter().CharacterId);
+                    return Convert.ToInt32(cmd.ExecuteNonQuery()) > 0;
+                }
+            }
         }
+
         public bool ClanExists(string clanName)
         {
-            return (GetQuery("SELECT COUNT(Name) FROM clan WHERE Name='" + clanName + "'") > 0);
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT COUNT(Name) FROM clan WHERE Name=@name", conn))
+                {
+                    cmd.Parameters.AddWithValue("@name", clanName);
+                    return Convert.ToInt32(cmd.ExecuteNonQuery()) > 0;
+                }
+            }
         }
-        public int CreateClan(string clanName, Client master, Client member1, Client member2, Client member3, Client member4)
+
+        public int CreateClan(string clanName, Client master, List<Pair<Client, bool>> members)
         {
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("INSERT INTO clan(Name, MasterCID, RegDate) VALUES(@name,@master CURDATE())", conn))
+                {
+                    cmd.Parameters.AddWithValue("@name", clanName);
+                    cmd.Parameters.AddWithValue("@master", master.GetCharacter().CharacterId);
+                    cmd.ExecuteNonQuery();
+                }
 
-            Execute(string.Format("INSERT INTO clan (Name,MasterCID,RegDate) VALUES ('{0}',{1},GetDate())", clanName, master.GetCharacter().CharacterId));
-            var clanId = GetIdentity(string.Format("select @@identity"));
+                var clanId = GetIdentity();
+                using (var masterCmd = new MySqlCommand("INSERT INTO clanmember(CLID, CID, Grade, RegDate) VALUES (@clid, @cid, @grade, CURDATE())", conn))
+                {
+                    masterCmd.Parameters.AddWithValue("@clid", clanId);
+                    masterCmd.Parameters.AddWithValue("@cid", master.GetCharacter().CharacterId);
+                    masterCmd.Parameters.AddWithValue("@grade", ClanGrade.Master);
+                    masterCmd.ExecuteNonQuery();
+                }
+                foreach (var member in members)
+                {
+                    using (var memberCmd = new MySqlCommand("INSERT INTO clanmember(CLID, CID, Grade, RegDate) VALUES (@clid, @cid, @grade, NOW())", conn))
+                    {
+                        memberCmd.Parameters.AddWithValue("@clid", clanId);
+                        memberCmd.Parameters.AddWithValue("@cid", member.First.GetCharacter().CharacterId);
+                        memberCmd.Parameters.AddWithValue("@grade", ClanGrade.User);
+                        memberCmd.ExecuteNonQuery();
+                    }
+                }
 
-            Execute(string.Format("INSERT INTO clanmember (CLID,CID,Grade,RegDate) VALUES ({0},{1}, 1, GetDate())", clanId, master.GetCharacter().CharacterId));
-            Execute(string.Format("INSERT INTO clanmember (CLID,CID,Grade,RegDate) VALUES ({0},{1}, 9, GetDate())", clanId, member1.GetCharacter().CharacterId));
-            Execute(string.Format("INSERT INTO clanmember (CLID,CID,Grade,RegDate) VALUES ({0},{1}, 9, GetDate())", clanId, member2.GetCharacter().CharacterId));
-            Execute(string.Format("INSERT INTO clanmember (CLID,CID,Grade,RegDate) VALUES ({0},{1}, 9, GetDate())", clanId, member3.GetCharacter().CharacterId));
-            Execute(string.Format("INSERT INTO clanmember (CLID,CID,Grade,RegDate) VALUES ({0},{1}, 9, GetDate())", clanId, member4.GetCharacter().CharacterId));
-
-            return clanId;
+                return clanId;
+            }
+            
         }
+
         public void JoinClan(Int32 cid, Int32 clid)
         {
-            Execute(string.Format("INSERT INTO clanmember (CLID,CID,Grade,RegDate) VALUES ({0},{1}, 9, GetDate())", clid, cid));
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("INSERT INTO clanmember (CLID,CID,Grade,RegDate) VALUES (@clid, @cid, @grade, NOW())", conn))
+                {
+                    cmd.Parameters.AddWithValue("@cid", cid);
+                    cmd.Parameters.AddWithValue("@clid", clid);
+                    cmd.Parameters.AddWithValue("@grade", ClanGrade.User);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
+
         public void ExpelMember(Int32 cid)
         {
-            Execute("DELETE FROM clanmember WHERE CID=" + cid);
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("DELETE from `clanmember` where cid=@cid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@cid", cid);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
-        public void UpdateMember(Int32 cid, Int32 rank)
+
+        public void UpdateMember(Int32 cid, Int32 grade)
         {
-            Execute("UPDATE clanmember SET Grade=" + rank + " WHERE CID=" + cid);
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("UPDATE clanmember SET Grade=@grade where CID=@cid", conn))
+                {
+                    cmd.Parameters.AddWithValue("@grade", grade);
+                    cmd.Parameters.AddWithValue("@cid", cid);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
+
         public Int32 GetClanId(string clanName)
         {
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (var command = new MySqlCommand("SELECT CLID FROM clan where Name=@name", _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("SELECT CLID FROM clan where Name=@name", conn))
                 {
                     command.Parameters.AddWithValue("@name", clanName);
-
                     return (Int32)command.ExecuteScalar();
                 }
             }
         }
         public string GetCharacterName(Int32 cid)
         {
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (var command = new MySqlCommand("SELECT name FROM `character` where cid=@cid", _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("SELECT name FROM `character` where cid=@cid", conn))
                 {
                     command.Parameters.AddWithValue("@cid", cid);
                     using (var reader = command.ExecuteReader())
@@ -432,11 +618,10 @@ namespace Bunny.Core
         }
         public void GetClanInfo(Int32 clanId, ref ClanInfo clanInfo)
         {
-            lock (_sqlConnection)
+            using (var conn = new MySqlConnection(_connectionString))
             {
-                using (
-                    var command = new MySqlCommand("SELECT * FROM clan WHERE CLID=@clid",
-                                                   _sqlConnection))
+                conn.Open();
+                using (var command = new MySqlCommand("SELECT * FROM clan WHERE CLID=@clid", conn))
                 {
                     command.Parameters.AddWithValue("@clid", clanId);
                     using (var reader = command.ExecuteReader())
@@ -461,7 +646,11 @@ namespace Bunny.Core
                         reader.Close();
 
                         clanInfo.Master = GetCharacterName(cid);
-                        clanInfo.MemberCount = Convert.ToInt16(GetQuery("SELECT COUNT(CID) FROM clanmember WHERE CLID=" + clanId));
+                        using (var clanCmd = new MySqlCommand("SELECT COUNT(CID) FROM clanmember WHERE CLID=@clid", conn))
+                        {
+                            clanCmd.Parameters.AddWithValue("@clid", clanId);
+                            clanInfo.MemberCount = Convert.ToInt16(clanCmd.ExecuteScalar());
+                        }
                     }
 
                 }
