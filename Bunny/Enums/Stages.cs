@@ -96,34 +96,5 @@
         High_Haven,
         Citadel,
         WeaponShop,
-        RelayMap
-    }
-
-    enum QuestNpc
-    {
-        None, 
-        Goblin = 11,
-        GoblinGunner,
-        GoblinWizard,
-        GoblinCommander,
-        GoblinCheif,
-        GoblinKing,
-        Palmpoa = 21,
-        PalmpoaCommander,
-        Palmpow,
-        CursedPalmpow,
-        PalmpowBaby,
-        Skeleton = 31,
-        SekeletonMage,
-        SekeletonCommander,
-        GiantSekeleton,
-        TheUnholy,
-        Lich,
-        Kobold = 41,
-        KoboldShaman,
-        KoboldCommander,
-        KoboldKing,
-        BrokenGolem,
-        Scrider
     }
 }

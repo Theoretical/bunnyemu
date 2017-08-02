@@ -31,20 +31,4 @@
         Battle,
         End
     }
-
-    public enum DuelTournamentRanks
-    {
-        Start,
-        GoldenKadachis,
-        GoldenKatanas,
-        GoldenTripleSwords,
-        GoldenCrossSwords,
-        GoldenDualDaggers,
-        GoldenDagger,
-        SilverTripleSwords,
-        SilverCrossSwords,
-        SilverDualDaggers,
-        SilverDagger,
-        End
-    }
 }
