@@ -53,7 +53,7 @@ namespace Bunny.Packet.Assembled
             {
                 packet.Write(playerCount);
                 packet.Write(page);
-                packet.Write(clients.Count, 73);
+                packet.Write(clients.Count, 71);
 
                 foreach (var c in clients)  
                 {
@@ -61,13 +61,11 @@ namespace Bunny.Packet.Assembled
                     packet.Write(c.GetCharacter().Name, 32);
                     packet.Write(c.GetCharacter().ClanName, 16);
                     packet.Write((byte)c.GetCharacter().Level);
-                    packet.Write((byte)c.GetCharacter().DuelRank);//dagger for duel tourney.
                     packet.Write((Int32)c.ClientPlayer.PlayerLocation);
                     packet.Write((byte)c.ClientPlayer.PlayerAccount.Access);
                     packet.Write((byte)2);
                     packet.Write(c.GetCharacter().ClanId);
-                    packet.Write(0);//unknown.
-                    packet.Write((byte)3);//unknown
+                    packet.Write(0); //emblem.
                 }
 
                 sendTo.ForEach(c => c.Send(packet));
@@ -79,7 +77,7 @@ namespace Bunny.Packet.Assembled
             using (var packet = new PacketWriter(Operation.ChannelResponseAllPlayerList, CryptFlags.Encrypt))
             {
                 packet.Write(channelId);
-                packet.Write(clients.Count, 73);
+                packet.Write(clients.Count, 71);
 
                 foreach (var c in clients)
                 {
@@ -87,13 +85,11 @@ namespace Bunny.Packet.Assembled
                     packet.Write(c.GetCharacter().Name, 32);
                     packet.Write(c.GetCharacter().ClanName, 16);
                     packet.Write((byte)c.GetCharacter().Level);
-                    packet.Write((byte)c.GetCharacter().DuelRank);//dagger for duel tourney.
                     packet.Write((Int32)c.ClientPlayer.PlayerLocation);
                     packet.Write((byte)c.ClientPlayer.PlayerAccount.Access);
                     packet.Write((byte)2);
                     packet.Write(c.GetCharacter().ClanId);
-                    packet.Write(0);//unknown.
-                    packet.Write((byte)3);//unknown
+                    packet.Write(0); //emblem.
                 }
 
                 client.Send(packet);

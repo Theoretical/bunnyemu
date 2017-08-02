@@ -12,7 +12,6 @@ namespace Bunny.Enums
         User,
         Clan,
         ClanWar, // Test.
-        DuelTournament = 5,
         None = 255
     }
     public enum ChannelRule : byte

@@ -25,11 +25,6 @@ namespace Bunny.Enums
         secondary_slot,
         custom1_slot,
         custom2_slot,
-        avatar_slot,    
-        community1_slot,
-        community2_slot,
-        longbuff1_slot,
-        longbuff2_slot
     }
 
     public class Position

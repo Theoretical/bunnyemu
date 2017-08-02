@@ -35,7 +35,7 @@ namespace Bunny.Core
                 ItemList.Load();
                 ExpManager.Load();
                 WorldItemManager.Load();
-               // NpcList.Load("NPC.xml");
+
                 Manager.InitializeHandlers<Login>();
                 Manager.InitializeHandlers<ItemHandler>();
                 Manager.InitializeHandlers<ChannelHandler>();

@@ -47,8 +47,6 @@ namespace Bunny.Packet.Assembled
                 packetWriter.Write((byte)ugrade);
                 packetWriter.Write((byte)pgrade);
                 packetWriter.Write(playerId);
-                packetWriter.Write(Globals.Config.Server.Survival);
-                packetWriter.Write(Globals.Config.Server.DuelTourney);
                 packetWriter.Write(1, 20);
                 packetWriter.WriteSkip(20);
 
@@ -108,7 +106,7 @@ namespace Bunny.Packet.Assembled
             using (var packet = new PacketWriter(Operation.MatchResponseSelectChar, CryptFlags.Encrypt))
             {
                 packet.Write(0);
-                packet.Write(client.GetCharacter(), false);
+                packet.Write(client.GetCharacter());
                 packet.Write(1,1);
                 packet.Write((byte)ExpManager.PercentToNextLevel((int)client.GetCharacter().Xp));
 
@@ -171,8 +169,6 @@ namespace Bunny.Packet.Assembled
                     packet.Write(i.ItemCid);
                     packet.Write(i.ItemId);
                     packet.Write(i.RentHour);
-                    packet.Write(0);
-                    packet.Write(i.Quantity);
                 }
                 packet.Write(0, 12);
 

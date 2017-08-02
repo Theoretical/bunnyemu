@@ -48,8 +48,6 @@ namespace Bunny
             public byte Id;
             public short Capacity;
             public string Mode;
-            public bool Survival;
-            public bool DuelTourney;
             public string Name;
             public bool UseMd5;
             public bool AutoRegistration;

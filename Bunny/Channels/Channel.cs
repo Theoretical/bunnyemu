@@ -139,14 +139,6 @@ namespace Bunny.Channels
 
         public void Chat(Client client, string message)
         {
-            if (message.StartsWith("/dtrank "))
-            {
-                var args = message.Substring(message.IndexOf(" ") + 1);
-                var dtrank = Int32.Parse(args);
-
-                client.GetCharacter().DuelRank = dtrank;
-                Refresh();
-            }
             if (message.StartsWith("/cw "))
             {
                 var args = message.Substring(message.IndexOf(" ") + 1);

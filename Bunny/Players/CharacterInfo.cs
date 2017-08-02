@@ -37,7 +37,6 @@ namespace Bunny.Players
         public Int32 Rank;
         public Int32 Kills;
         public Int32 Deaths;
-        public Int32 DuelRank = 10;
 
         public CharacterInfo()
         {

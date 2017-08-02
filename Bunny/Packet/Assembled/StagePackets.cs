@@ -54,7 +54,6 @@ namespace Bunny.Packet.Assembled
                     packet.Write(c.GetCharacter().Rank);//rank
                     packet.Write(c.GetCharacter().Kills);//kill
                     packet.Write(c.GetCharacter().Deaths);//death
-                    packet.Write(c.GetCharacter().DuelRank);//duel
                 }
 
                 sendTo.ForEach(c => c.Send(packet));
@@ -66,7 +65,7 @@ namespace Bunny.Packet.Assembled
             using (var packet = new PacketWriter(Operation.MatchObjectCache, CryptFlags.Encrypt))
             {
                 packet.Write((byte)cache);
-                packet.Write(clients.Count, 176);
+                packet.Write(clients.Count, 164);
 
                 foreach (var c in clients)
                 {
@@ -89,11 +88,6 @@ namespace Bunny.Packet.Assembled
                     {
                         packet.Write(item.ItemId);
                     }
-
-                    packet.Write(c.GetCharacter().Rank);//rank
-                    packet.Write(c.GetCharacter().Kills);//kill
-                    packet.Write(c.GetCharacter().Deaths);//death
-                    packet.Write(c.GetCharacter().DuelRank);//duel
                 }
 
                 client.Send(packet);
@@ -105,7 +99,7 @@ namespace Bunny.Packet.Assembled
             using (var packet = new PacketWriter(Operation.MatchObjectCache, CryptFlags.Encrypt))
             {
                 packet.Write((byte) cache);
-                packet.Write(1, 176);
+                packet.Write(1, 164);
 
                 packet.Write(0);
                 packet.Write(player.GetMuid());
@@ -127,11 +121,6 @@ namespace Bunny.Packet.Assembled
                     packet.Write(item.ItemId);
                 }
 
-                packet.Write(player.GetCharacter().Rank); //rank
-                packet.Write(player.GetCharacter().Kills); //kill
-                packet.Write(player.GetCharacter().Deaths); //death
-                packet.Write(player.GetCharacter().DuelRank); //duel
-                
                 clients.ForEach(c => c.Send(packet));
 
 
@@ -195,9 +184,6 @@ namespace Bunny.Packet.Assembled
                         case "Shower Room":
                             packet.Write(Convert.ToByte(RelayMaps.Shower_Room));
                             break;
-                        case "RelayMap":
-                            packet.Write(Convert.ToByte(RelayMaps.RelayMap));
-                            break;
                         default:
                             packet.Write(Convert.ToByte(Enum.Parse(typeof(RelayMaps), info.Map)));
                             break;
@@ -205,10 +191,13 @@ namespace Bunny.Packet.Assembled
 
                     if (!info.ForcedEntry)
                         packet.Write((Int32)StageType.Regular);
+
                     else if (info.Password.Length > 0)
                         packet.Write((Int32)StageType.Locked);
+
                     else if (info.Locked)
                         packet.Write((Int32)StageType.LevelRestricted);
+
                     else
                         packet.Write((Int32)StageType.None);
 
