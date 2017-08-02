@@ -71,7 +71,7 @@ namespace Bunny.Packet.Disassemble
                 result = Results.ShopItemNonExistant;
             else
             {
-                Globals.GunzDatabase.Deletetem(item.ItemCid);
+                Globals.GunzDatabase.DeleteItem(item.ItemCid);
                 client.GetCharacter().Bp += item.Price;
                 Globals.GunzDatabase.UpdateBp(client.GetCharacter().Bp, client.GetCharacter().CharacterId);
                 client.GetCharacter().Items.Remove(item);

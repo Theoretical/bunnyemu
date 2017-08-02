@@ -51,10 +51,8 @@ namespace Bunny.Packet.Assembled
                 packet.Write(0);
 
                 pendingClan.ClanMaster.Send(packet);
-                pendingClan.Member1.First.Send(packet);
-                pendingClan.Member2.First.Send(packet);
-                pendingClan.Member3.First.Send(packet);
-                pendingClan.Member4.First.Send(packet);
+                foreach (var member in pendingClan.Members)
+                    member.First.Send(packet);
             }
         }
 

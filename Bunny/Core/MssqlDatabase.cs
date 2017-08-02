@@ -10,7 +10,7 @@ using Bunny.Utility;
 
 namespace Bunny.Core
 {
-    class MssqlDatabase : IDatabase
+  /*  class MssqlDatabase : IDatabase
     {
         private SqlConnection _sqlConnection;
 
@@ -438,5 +438,5 @@ namespace Bunny.Core
             }
         }
         #endregion
-    }
+    }*/
 }

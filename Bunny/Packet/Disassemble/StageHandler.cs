@@ -521,44 +521,6 @@ namespace Bunny.Packet.Disassemble
             stage.CurrentMap = Globals.Maps.GetMap(stage.RelayMaps.Maps[0].ToString());
         }
 
-        [PacketHandler(Operation.MatchRequestUseTrap, PacketFlags.Stage)]
-        public static void ProcessRequestUseTrap(Client pClient, PacketReader pPacket)
-        {
-            var id = pPacket.ReadInt16();
-
-            Log.Write("Trap? {0}", id);
-        }
-
-        [PacketHandler(Operation.MatchRequestUseTrap2, PacketFlags.Stage)]
-        public static void ProcessRequestUseTrap2(Client pClient, PacketReader pPacket)
-        {
-            var id = pPacket.ReadInt16();
-            var x = pPacket.ReadInt16();
-            var y = pPacket.ReadInt16();
-            var z = pPacket.ReadInt16();
-
-            Log.Write("Trap2? {0} X: {1} Y: {2} Z:{3}", id, x, y, z);
-
-            using (var p = new PacketWriter(Operation.MatchRequestUseTrap2, CryptFlags.Encrypt))
-            {
-                p.Write(id);
-                p.Write(x);
-                p.Write(y);
-                p.Write(z);
-
-                pClient.GetStage().GetTraits().Players.ForEach(c => c.Send(p));
-            }
-        }
-
-        [PacketHandler(Operation.QuestRequestStageLevel, PacketFlags.None)]
-        public static void ProcessQuestRequestStageLevel(Client client, PacketReader packetReader)
-        {
-            using (var packet = new PacketWriter(Operation.QuestResponseStageLevel, CryptFlags.Encrypt))
-            {
-                packet.Write(0);
-                client.Send(packet);
-            }
-        }
-    }
+      }
 }
 

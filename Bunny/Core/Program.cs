@@ -2,7 +2,6 @@
 using Bunny.Network;
 using Bunny.Packet;
 using Bunny.Packet.Disassemble;
-using Bunny.Quest;
 using Bunny.Stages;
 using Bunny.Utility;
 using Bunny.Channels;
@@ -22,10 +21,7 @@ namespace Bunny.Core
                 Globals.Config = Configuration.Load();
                 Log.Initialize();
                 Log.Write("{0}", DateTime.Now.Ticks);
-                if (Type.GetType("Mono.Runtime") == null)
-                    Globals.GunzDatabase = new MssqlDatabase();
-                else
-                    Globals.GunzDatabase = new MySQLDatabase();
+                Globals.GunzDatabase = new MySQLDatabase();
 
                 if (!Globals.GunzDatabase.Initialize())
                 {

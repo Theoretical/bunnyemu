@@ -123,7 +123,7 @@ namespace Bunny.Packet.Disassemble
             var isAccepted = pendingClan.Members.All(m => m.Second == true);
             if (isAccepted)
             {
-                int clanId = Globals.GunzDatabase.CreateClan(pendingClan.ClanName, pendingClan.ClanMaster, pendingClan);
+                int clanId = Globals.GunzDatabase.CreateClan(pendingClan.ClanName, pendingClan.ClanMaster, pendingClan.Members);
 
                 ClanPackets.ResponseAagreedCreateClan(pendingClan);
                 pendingClan.ClanMaster.GetCharacter().ClanId = clanId;

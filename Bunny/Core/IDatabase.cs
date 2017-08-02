@@ -11,11 +11,7 @@ namespace Bunny.Core
     interface IDatabase
     {
         bool Initialize();
-        void Execute(string query);
-        void Execute(string query, ArrayList result);
-        int GetQuery(string query);
-        object GetQueryScalar(string query);
-        int GetIdentity(string query);
+        int GetIdentity();
 
         #region Modules
         bool AccountExists(string user);
@@ -31,12 +27,12 @@ namespace Bunny.Core
         bool CharacterExists(string name);
         void DeleteCharacter(Int32 aid, Int32 cid);
         int AddItem(Int32 cid, Int32 itemid, Int32 count = 0);
-        void Deletetem(Int32 ciid);
+        void DeleteItem(Int32 ciid);
         void UpdateSlot(Int32 cid, ItemSlotType slot, Int32 itemid);
         void UpdateLevel(Int32 cid, UInt32 xp, Int32 level);
         bool IsInClan(Client client);
         bool ClanExists(string clanName);
-        int CreateClan(string clanName, Client master, Client member1, Client member2, Client member3, Client member4);
+        int CreateClan(string clanName, Client master, List<Pair<Client, bool>> members);
         void JoinClan(Int32 cid, Int32 clid);
         void ExpelMember(Int32 cid);
         void UpdateMember(Int32 cid, Int32 rank);
