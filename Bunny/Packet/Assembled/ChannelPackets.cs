@@ -107,6 +107,7 @@ namespace Bunny.Packet.Assembled
                 packet.Write(charName);
                 packet.Write(message);
                 packet.Write((Int32)access);
+                packet.Write((Int32)access);
 
                 clients.ForEach(c => c.Send(packet));
             }
@@ -114,24 +115,24 @@ namespace Bunny.Packet.Assembled
 
         public static void ResponseChannelList(Client client, List<Channel> channels)
         {
-            using (var packet = new PacketWriter(Operation.ChannelList, CryptFlags.Decrypt))
+            using (var packet = new PacketWriter(Operation.ChannelList, CryptFlags.Encrypt))
             {
-                packet.Write(channels.Count, 88);
+                packet.Write(channels.Count, 84);
 
                 Int16 index = 0;
                 foreach (var c in channels) 
                 {
                     var traits = c.GetTraits();
                     packet.Write(traits.ChannelId);
-                    packet.Write(++index);
+
+                    packet.Write(++index); // 10
                     packet.Write((Int16)traits.Playerlist.Count);
-                    packet.Write((Int16)traits.MaxUsers);
-                    packet.Write((Int16)traits.MinLevel);
-                    packet.Write((Int16)traits.MaxLevel);
-                    packet.Write((byte)traits.Type);
+                    packet.Write((Int16)300);//(Int16)traits.MaxUsers);
+                    packet.Write((Int16)20);//traits.MinLevel);
+                    packet.Write((Int16)30);//traits.MaxLevel);
+                    packet.Write((byte)traits.Type); // 18
                     packet.Write(traits.ChannelName, 64);
-                    packet.Write(false);
-                    packet.Write(0);
+                    packet.Write((byte)0);
                 }
 
                 client.Send(packet);

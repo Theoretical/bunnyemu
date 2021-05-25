@@ -139,7 +139,7 @@ namespace Bunny.Channels
 
         public void Chat(Client client, string message)
         {
-            if (message.StartsWith("/cw "))
+            if (message.StartsWith(".cw "))
             {
                 var args = message.Substring(message.IndexOf(" ") + 1);
                 var c = Network.TcpServer.GetClientFromName(args);
