@@ -102,11 +102,11 @@ namespace Bunny.Packet.Assembled
                 packet.Write((byte) cache);
                 packet.Write(1, 176);
 
-                packet.Write(0);
+                packet.Write(0); // dumb af.
                 packet.Write(player.GetMuid());
                 packet.Write(player.GetCharacter().Name, 32);
                 packet.Write(player.GetCharacter().ClanName, 16);
-                packet.Write((Int32) player.GetCharacter().Level);
+                packet.Write((byte) player.GetCharacter().Level);
                 packet.Write((Int32) player.ClientPlayer.PlayerAccount.Access);
                 packet.Write(0);
                 packet.Write(0);
@@ -174,24 +174,8 @@ namespace Bunny.Packet.Assembled
                     packet.Write((Int32)info.State);
                     packet.Write((Int32)info.Gametype);
 
-                    switch (info.Map)
-                    {
-                        case "Battle Arena":
-                            packet.Write(Convert.ToByte(RelayMaps.BattleArena));
-                            break;
-                        case "Prison II":
-                            packet.Write(Convert.ToByte(RelayMaps.PrisonII));
-                            break;
-                        case "Lost Shrine":
-                            packet.Write(Convert.ToByte(RelayMaps.LostShrine));
-                            break;
-                        case "Shower Room":
-                            packet.Write(Convert.ToByte(RelayMaps.Shower_Room));
-                            break;
-                        default:
-                            packet.Write(Convert.ToByte(Enum.Parse(typeof(RelayMaps), info.Map)));
-                            break;
-                    }
+                    var transformedMap = info.Map.Replace(" ", "").Replace("'", "");
+                    packet.Write(Convert.ToByte(Enum.Parse(typeof(RelayMaps), transformedMap)));
 
                     if (!info.ForcedEntry)
                         packet.Write((Int32)StageType.Regular);

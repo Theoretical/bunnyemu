@@ -126,6 +126,10 @@ namespace Bunny.Packet.Disassemble
 
             }
 
+            var transformedMap = map.Replace(" ", "").Replace("'", "");
+            if ((ObjectStageGameType)type != ObjectStageGameType.Duel && (RelayMaps)Enum.Parse(typeof(RelayMaps), transformedMap) > RelayMaps.DUEL_BEGIN)
+                return;
+
             switch ((ObjectStageGameType)type)
             {
                 case ObjectStageGameType.DeathMatch:

@@ -292,7 +292,7 @@ namespace Bunny.Packet.Assembled
             {
                 packet.Write(client.GetStage().GetTraits().StageId);
 
-                packet.Write(clients.Count, 166);
+                packet.Write(clients.Count, 462);
                 foreach (var c in clients)
                 {
                     packet.Write(c.GetMuid());
@@ -333,7 +333,12 @@ namespace Bunny.Packet.Assembled
                         packet.Write(nItem.ItemId);
 
                     packet.Write((Int32)c.ClientPlayer.PlayerAccount.Access);
+                    packet.Write((Int32)c.ClientPlayer.PlayerAccount.Access); //pgrade
                     packet.Write(c.GetCharacter().ClanId);
+
+                    packet.Write("", 32);
+                    packet.Write("", 256);
+                    packet.Write(0);
 
                     packet.Write((byte)c.ClientPlayer.PlayerTeam);
                     packet.Write((byte)0);

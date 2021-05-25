@@ -7,10 +7,16 @@ namespace Hare
 {
     class Program
     {
+        public enum LOL
+        {
+            A = 1,
+            B = 1 << 1
+        } 
+
         static void Main(string[] args)
         {
-            //Console.BufferWidth = Console.WindowWidth = 128;
-            //Console.Title = "Hare Login Server";
+            Console.BufferWidth = Console.WindowWidth = 128;
+            Console.Title = "Hare Login Server";
             Globals.Configuration = Configuration.Load();
 
             UdpServer.Initialize();

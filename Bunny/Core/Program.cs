@@ -15,8 +15,8 @@ namespace Bunny.Core
         {
             try
             {
-                //Console.BufferWidth = Console.WindowWidth = 128;
-                //Console.Title = "Bunny Emu";
+                Console.BufferWidth = Console.WindowWidth = 128;
+                Console.Title = "Bunny Emu";
 
                 Globals.Config = Configuration.Load();
                 Log.Initialize();
