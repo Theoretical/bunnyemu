@@ -1,0 +1,6 @@
+.vs
+*.pdb
+packages
+bin
+release
+debug

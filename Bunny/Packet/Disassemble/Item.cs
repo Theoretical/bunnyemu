@@ -25,13 +25,12 @@ namespace Bunny.Packet.Disassemble
         {
             var uid = packetReader.ReadUInt64();
             var itemid = packetReader.ReadInt32();
-            var count = packetReader.ReadInt32();
             Results result = Results.Accepted;
 
             Items.Item item = ItemList.Find(itemid);
             if (item == null)
                 result = Results.ShopItemNonExistant;
-            else if ((item.Price > client.GetCharacter().Bp && Globals.Config.Items.UseBounty) || count > 0 && item.Price * count > client.GetCharacter().Bp && Globals.Config.Items.UseBounty)
+            else if ((item.Price > client.GetCharacter().Bp && Globals.Config.Items.UseBounty) ||  item.Price > client.GetCharacter().Bp && Globals.Config.Items.UseBounty)
                 result = Results.ShopInsufficientBounty;
             else if (client.GetCharacter().Items.Count == Globals.Config.Character.MaxItems)
                 result = Results.ShopInventoryFull;
@@ -43,8 +42,8 @@ namespace Bunny.Packet.Disassemble
                 temp.MaxWeight = item.MaxWeight;
                 temp.Weight = item.Weight;
                 temp.Price = item.Price;
-                temp.Quantity = count;
-                temp.ItemCid = Globals.GunzDatabase.AddItem(client.GetCharacter().CharacterId, item.ItemId, count);
+                temp.Quantity = 1;
+                temp.ItemCid = Globals.GunzDatabase.AddItem(client.GetCharacter().CharacterId, item.ItemId, 1);
                 client.GetCharacter().Items.Add(temp);
 
                 if (Globals.Config.Items.UseBounty)

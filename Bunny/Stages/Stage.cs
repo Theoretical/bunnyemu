@@ -64,7 +64,7 @@ namespace Bunny.Stages
                 client.ClientFlags = PacketFlags.Character;
                 client.ClientPlayer.PlayerStage = null;
 
-                StagePackets.ResponseStageLeave(_traits.Players, client.GetMuid());
+                StagePackets.ResponseStageLeave(_traits.Players, this, client.GetMuid());
                 _traits.Players.Remove(client);
 
                 if (_traits.Players.Count == 0)

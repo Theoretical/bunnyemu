@@ -16,7 +16,7 @@ namespace Bunny.Stages
         public StageState State = StageState.Standby;
         public RoundState Round = RoundState.Prepare;
         public ObjectStageGameType Gametype = ObjectStageGameType.DeathMatch;
-        public byte MaxPlayers = 8;
+        public int MaxPlayers = 8;
         public bool TeamKill;
         public bool WinThePoint;
         public bool ForcedEntry;
@@ -25,7 +25,7 @@ namespace Bunny.Stages
         public bool Locked;
         public Int32 RoundCount = 50;
         public byte Time = 30;
-        public byte Level;
+        public int Level;
         public byte CurrentRound;
         public int Type;
         public List<Client> Players = new List<Client>();

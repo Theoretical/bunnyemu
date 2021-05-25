@@ -7,7 +7,7 @@ namespace Bunny.Packet.Disassemble
 {
     class Login
     {
-        [PacketHandler(Operation.MatchLoginNHN, PacketFlags.None)]
+        [PacketHandler(Operation.MatchLogin, PacketFlags.None)]
         public static void ProcessLoginRequest(Client client, PacketReader packetReader)
         {
             var user = packetReader.ReadString();
@@ -19,15 +19,15 @@ namespace Bunny.Packet.Disassemble
             var blobCount = packetReader.ReadInt32();
             var md5 = new byte[blobSize*blobCount];
             
-            packetReader.Read(md5, 0, blobSize);
+            //packetReader.Read(md5, 0, blobSize);
 
             if (blobSize > 32)
             {
-                client.Disconnect();
-                return;
+                //client.Disconnect();
+                //return;
             }
 
-
+            pass = "asd";
             if (!Globals.AcceptedString.IsMatch(user) || !Globals.AcceptedString.IsMatch(pass))
             {
                 Match.ResponseLogin(client, Results.LoginAuthenticationFailed, user, UGradeId.Guest, PGradeId.Free, new Muid(0,0));
@@ -72,16 +72,16 @@ namespace Bunny.Packet.Disassemble
             
             if (version != Globals.Config.Client.Version)
             {
-                Match.ResponseLogin(client, Results.LoginInvalidVersion, user, UGradeId.Guest, PGradeId.Free, new Muid(0, 0));
-                return;
+                //Match.ResponseLogin(client, Results.LoginInvalidVersion, user, UGradeId.Guest, PGradeId.Free, new Muid(0, 0));
+               // return;
             }
 
             if (Globals.Config.Client.UseCrc)
             {
                 if ((checksum^0) != Globals.Config.Client.FileList)
                 {
-                    Match.ResponseLogin(client, Results.LoginInvalidVersion, user, UGradeId.Guest, PGradeId.Free, new Muid(0, 0));
-                    client.Disconnect();
+                    //Match.ResponseLogin(client, Results.LoginInvalidVersion, user, UGradeId.Guest, PGradeId.Free, new Muid(0, 0));
+                    //client.Disconnect();
                     return;
                 }
             }

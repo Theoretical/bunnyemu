@@ -47,13 +47,32 @@ namespace Bunny.Packet.Disassemble
             //Now attempt to bind them!
             if (Globals.NatAgent != null)
             {
-                AgentPackets.RelayPeer(Globals.NatAgent, new Tuple<Muid, Muid, Muid>(charId, peerId, client.GetStage().GetTraits().StageId));
+                AgentPackets.RelayPeer(Globals.NatAgent, new System.Tuple<Muid, Muid, Muid>(charId, peerId, client.GetStage().GetTraits().StageId));
                 Log.Write("Binding player to NAT");
             }
             else
             {
                 AgentPackets.AgentError(client, 10001);
             }
+        }
+
+
+        [PacketHandler(Operation.P2PRoute, PacketFlags.None)]
+        public static void ProcessRoute(Client client, PacketReader packetReader)
+        {
+            if (client.GetStage() == null)
+                return;
+
+            var peerId = packetReader.ReadMuid();
+            var totalSize = packetReader.ReadInt32();
+
+            var blob = new byte[totalSize];
+
+            packetReader.Read(blob, 0, totalSize);
+
+            var peer = TcpServer.GetClientFromUid(peerId);
+
+            AgentPackets.RoutePeer(peer, client.GetMuid(), totalSize, 1, blob);
         }
 
         [PacketHandler(Operation.AgentPeerReady, PacketFlags.None)]

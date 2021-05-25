@@ -47,6 +47,7 @@ namespace Bunny.Packet.Assembled
                 packetWriter.Write((byte)ugrade);
                 packetWriter.Write((byte)pgrade);
                 packetWriter.Write(playerId);
+                packetWriter.Write("asd");
                 packetWriter.Write(1, 20);
                 packetWriter.WriteSkip(20);
 
@@ -57,11 +58,13 @@ namespace Bunny.Packet.Assembled
         {
             using (var packet = new PacketWriter(Operation.MatchResponseAccountCharList, CryptFlags.Encrypt))
             {
-                packet.Write(characters.Count, 34);
+                packet.Write(characters.Count, 70);
 
                 for (byte a = 0; a < characters.Count; a++)
                 {
                     packet.Write(characters[a].First, 32);
+                    packet.Write("", 32);
+                    packet.Write(0);
                     packet.Write(a);
                     packet.Write(characters[a].Second);
                 }
@@ -138,7 +141,6 @@ namespace Bunny.Packet.Assembled
         {
             using (var packet = new PacketWriter(Operation.MatchResponseShopItemList, CryptFlags.Encrypt))
             {
-                packet.Write(0, 12);
                 List<Item> items = ItemList.GetShopItems(client.GetCharacter().Sex);
                 
                 packet.Write(items.Count, 4);
@@ -154,15 +156,15 @@ namespace Bunny.Packet.Assembled
             {
                 packet.Write(client.GetCharacter().Bp);
 
-                packet.Write(17, 8);
-                for (var i = 0; i < 17; ++i)
+                packet.Write(12, 8);
+                for (var i = 0; i < 12; ++i)
                 {
                     packet.Write(0);
                     packet.Write(client.GetCharacter().EquippedItems[i].ItemCid);
                 }
 
 
-                packet.Write(client.GetCharacter().Items.Count, 24);
+                packet.Write(client.GetCharacter().Items.Count, 16);
                 foreach (var i in client.GetCharacter().Items)
                 {
                     packet.Write(0);
@@ -170,10 +172,11 @@ namespace Bunny.Packet.Assembled
                     packet.Write(i.ItemId);
                     packet.Write(i.RentHour);
                 }
-                packet.Write(0, 12);
 
                 client.Send(packet);
             }
+
+            ResponseShopItemList(client);
         }
 
         public static void ResponseBuyItem(Client client, Results results)

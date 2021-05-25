@@ -112,11 +112,7 @@ namespace Hare
 
             }
             var packetWriter = new PacketWriter(0x9C42, 0x64);
-            packetWriter.Write(1, 83);
-            packetWriter.Write(byte.Parse(ipAddress[0]));
-            packetWriter.Write(byte.Parse(ipAddress[1]));
-            packetWriter.Write(byte.Parse(ipAddress[2]));
-            packetWriter.Write(byte.Parse(ipAddress[3]));
+            packetWriter.Write(1, 15);
             packetWriter.Write(byte.Parse(ipAddress[0]));
             packetWriter.Write(byte.Parse(ipAddress[1]));
             packetWriter.Write(byte.Parse(ipAddress[2]));
@@ -127,7 +123,7 @@ namespace Hare
             packetWriter.Write((short)0);
             packetWriter.Write((byte)serverType);
             packetWriter.Write((byte)1);
-            packetWriter.Write(Globals.Configuration.Server.Name, 64);
+            //packetWriter.Write(Globals.Configuration.Server.Name, 64);
             return packetWriter.Process(1, new byte[32]);
         }
     }

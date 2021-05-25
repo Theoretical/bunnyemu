@@ -19,7 +19,7 @@ namespace Bunny.Packet.Assembled
             }
         }
 
-        public static void RelayPeer (Client client, Tuple<Muid,Muid,Muid> uids)
+        public static void RelayPeer (Client client, System.Tuple<Muid,Muid,Muid> uids)
         {
             using (var packet = new PacketWriter(Operation.AgentRelayPeer, CryptFlags.Encrypt))
             {
@@ -27,6 +27,17 @@ namespace Bunny.Packet.Assembled
                 packet.Write(uids.Item2);
                 packet.Write(uids.Item3);
 
+                client.Send(packet);
+            }
+        }
+
+        public static void RoutePeer(Client client, Muid sender, Int32 size, Int32 count, byte[] blob)
+        {
+            using (var packet = new PacketWriter(Operation.P2PRoute, CryptFlags.Decrypt))
+            {
+                packet.Write(sender);
+                packet.Write(size);
+                packet.Write(blob);
                 client.Send(packet);
             }
         }

@@ -241,7 +241,7 @@ namespace Bunny.Core
                     continue;
                 }
 
-                if (pReader.GetOpcode() != Operation.GameRequestTimeSync && pReader.GetOpcode() != Operation.MatchAgentRequestLiveCheck)
+                if (pReader.GetOpcode() != Operation.GameRequestTimeSync && pReader.GetOpcode() != Operation.MatchAgentRequestLiveCheck && pReader.GetOpcode() != Operation.P2PRoute)
                     Log.Write("[{0}] Received: {1}", ClientIp, pReader.GetOpcode());
 
                 if (Manager.Operations.TryGetValue(pReader.GetOpcode(), out handler))

@@ -73,7 +73,7 @@ namespace Bunny.Packet.Assembled
                     packet.Write((byte)1);
 
                 //really hate constants :(.
-                packet.Write(1, 166);
+                packet.Write(1, 462);
                 packet.Write(client.GetMuid());
 
                 if (client.PeerEnd == null)
@@ -87,6 +87,8 @@ namespace Bunny.Packet.Assembled
                     packet.Write(client.PeerEnd.Port);
                 }
 
+
+                // uh oh...
                 packet.Write(client.GetCharacter().Name, 32);
                 packet.Write(client.GetCharacter().ClanName, 16);
                 packet.Write((Int32)client.GetCharacter().ClanGrade);//clan rank
@@ -112,7 +114,13 @@ namespace Bunny.Packet.Assembled
                     packet.Write(nItem.ItemId);
 
                 packet.Write((Int32)client.ClientPlayer.PlayerAccount.Access);
+                packet.Write((Int32)client.ClientPlayer.PlayerAccount.Access); //pgrade
                 packet.Write(client.GetCharacter().ClanId);
+
+                packet.Write("", 32);
+                packet.Write("", 256);
+                packet.Write(0);
+
                 packet.Write((byte)client.ClientPlayer.PlayerTeam);
                 packet.Write((byte)0);
                 packet.Write((Int16)0);
@@ -232,12 +240,13 @@ namespace Bunny.Packet.Assembled
             }
         }
 
-        public static void GameDie(List<Client> clients, Pair<Muid, Muid> uids, Pair<UInt32, UInt32> args)
+        public static void GameDie(List<Client> clients, Pair<Muid, Muid> uids, Pair<UInt32, UInt32> args, UInt32 weapon)
         {
             using (var packet = new PacketWriter(Operation.GameDie, CryptFlags.Encrypt))
             {
                 packet.Write(uids.First);
                 packet.Write(args.First);
+                packet.Write(weapon);
                 packet.Write(uids.Second);
                 packet.Write(args.Second);
 

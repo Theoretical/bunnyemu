@@ -93,21 +93,26 @@ namespace Bunny.Packet.Disassemble
 
             var uidChar = packetReader.ReadMuid();
             var uidStage = packetReader.ReadMuid();
+            
             var total = packetReader.ReadInt32();
             var size = packetReader.ReadInt32();
             var count = packetReader.ReadInt32();
+            
             var uidStage2 = packetReader.ReadMuid();
+            var name = packetReader.ReadString(64);
             var map = packetReader.ReadString(32);
-            var index = packetReader.ReadInt32();
+
+            var index = packetReader.ReadByte();
             var type = packetReader.ReadInt32();
             var rounds = packetReader.ReadInt32();
             var time = packetReader.ReadInt32();
             var level = packetReader.ReadInt32();
             var players = packetReader.ReadInt32();
             var teamkill = packetReader.ReadBoolean();
-            var balance = packetReader.ReadBoolean();
-            var join = packetReader.ReadBoolean();
             var win = packetReader.ReadBoolean();
+            var join = packetReader.ReadBoolean();
+            var balance = packetReader.ReadBoolean();
+
 
             if ((ObjectStageGameType)type != stage.Gametype)
             {
@@ -159,8 +164,8 @@ namespace Bunny.Packet.Disassemble
             stage.RoundCount =  rounds;
 
             stage.Time = time > Byte.MaxValue ? (byte)0 : Convert.ToByte(time);
-            stage.Level = Convert.ToByte(level);
-            stage.MaxPlayers = Convert.ToByte(players);
+            stage.Level = level;
+            stage.MaxPlayers = players;
             stage.ForcedEntry = join;
             stage.TeamBalanced = balance;
             stage.TeamKill = teamkill;
@@ -330,6 +335,8 @@ namespace Bunny.Packet.Disassemble
             }
 
             var uidKiller = packet.ReadMuid();
+            var weapon = packet.ReadUInt32();
+
             Client killer;
 
             lock (client.GetStage().ObjectLock)
@@ -339,7 +346,7 @@ namespace Bunny.Packet.Disassemble
             }
 
             if (killer != null)
-                client.GetStage().GetTraits().Ruleset.GameKillCallback(killer, client);
+                client.GetStage().GetTraits().Ruleset.GameKillCallback(killer, client, weapon);
             else
             {
                 Log.Write("Invalid killer");

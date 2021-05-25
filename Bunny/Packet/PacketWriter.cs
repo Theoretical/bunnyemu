@@ -53,7 +53,7 @@ namespace Bunny.Packet
 
         public void Write(CharacterInfo charInfo)
         {
-            Write(1, 146);
+            Write(1, 442);
             Write(charInfo.Name, 32);
             Write(charInfo.ClanName, 16);
             Write((Int32)charInfo.ClanGrade);
@@ -75,10 +75,15 @@ namespace Bunny.Packet
             Write(charInfo.Cr);
             Write(charInfo.Er);
             Write(charInfo.Wr);
-            for (int i = 0; i < 17; i++)
+            for (int i = 0; i < 12; i++)
                 Write(charInfo.EquippedItems[i].ItemId);
             Write((Int32)charInfo.UGrade);
+            Write((Int32)0); //pgrade
             Write(charInfo.ClanId);
+
+            Write("", 32);
+            Write("", 256);
+            Write((Int32)0);
         }
 
 

@@ -17,9 +17,9 @@ namespace Bunny.Stages
             Map map = new Map();
             XmlReader reader; 
             if (Type.GetType("Mono.Runtime") == null)
-                reader = new XmlTextReader("Maps\\" + mapname + "\\map.xml");
+                reader = new XmlTextReader($"Maps\\{mapname}\\{mapname}.RS.xml");
             else
-                reader = new XmlTextReader("Maps/" + mapname + "/map.xml");
+                reader = new XmlTextReader($"Maps/{mapname}/{mapname}.RS.xml");
 
             SpawnType lastType = SpawnType.Solo;
             Position p = new Position();
@@ -197,9 +197,9 @@ namespace Bunny.Stages
                         Log.Write("Loaded: Map[{0}] spawns: {1}", map, currentMap.Deathmatch.Count);
                         maps.Add(currentMap);
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        Log.Write("[ERROR] UNABLE TO LOAD MAP: {0}", map);
+                        Log.Write("[ERROR] UNABLE TO LOAD MAP: {0} - {1}", map, ex);
                         continue;
                     }
                 }
@@ -214,3 +214,4 @@ namespace Bunny.Stages
         }
     }
 }
+

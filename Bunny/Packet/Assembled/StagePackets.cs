@@ -18,7 +18,8 @@ namespace Bunny.Packet.Assembled
                 packet.Write(client.GetStage().GetTraits().StageId);
                 packet.Write(client.GetStage().GetTraits().StageIndex);
                 packet.Write(client.GetStage().GetTraits().Name);
-                
+                packet.Write((bool)false);
+
                 client.Send(packet);
             }
         }
@@ -41,6 +42,8 @@ namespace Bunny.Packet.Assembled
                     packet.Write(0);
                     packet.Write(c.GetCharacter().ClanId);
                     packet.Write(0);
+                    packet.Write("", 32);
+                    packet.Write(0);
                     packet.Write((Int32)c.GetCharacter().Sex);
                     packet.Write(c.GetCharacter().Hair);
                     packet.Write(c.GetCharacter().Face);
@@ -50,10 +53,6 @@ namespace Bunny.Packet.Assembled
                     {
                         packet.Write(item.ItemId);
                     }
-
-                    packet.Write(c.GetCharacter().Rank);//rank
-                    packet.Write(c.GetCharacter().Kills);//kill
-                    packet.Write(c.GetCharacter().Deaths);//death
                 }
 
                 sendTo.ForEach(c => c.Send(packet));
@@ -65,7 +64,7 @@ namespace Bunny.Packet.Assembled
             using (var packet = new PacketWriter(Operation.MatchObjectCache, CryptFlags.Encrypt))
             {
                 packet.Write((byte)cache);
-                packet.Write(clients.Count, 164);
+                packet.Write(clients.Count, 176);
 
                 foreach (var c in clients)
                 {
@@ -78,6 +77,8 @@ namespace Bunny.Packet.Assembled
                     packet.Write(0);
                     packet.Write(0);
                     packet.Write(c.GetCharacter().ClanId);
+                    packet.Write(0);
+                    packet.Write("", 32);
                     packet.Write(0);
                     packet.Write((Int32)c.GetCharacter().Sex);
                     packet.Write(c.GetCharacter().Hair);
@@ -99,7 +100,7 @@ namespace Bunny.Packet.Assembled
             using (var packet = new PacketWriter(Operation.MatchObjectCache, CryptFlags.Encrypt))
             {
                 packet.Write((byte) cache);
-                packet.Write(1, 164);
+                packet.Write(1, 176);
 
                 packet.Write(0);
                 packet.Write(player.GetMuid());
@@ -110,6 +111,8 @@ namespace Bunny.Packet.Assembled
                 packet.Write(0);
                 packet.Write(0);
                 packet.Write(player.GetCharacter().ClanId);
+                packet.Write(0);
+                packet.Write("", 32);
                 packet.Write(0);
                 packet.Write((Int32) player.GetCharacter().Sex);
                 packet.Write(player.GetCharacter().Hair);
@@ -136,11 +139,12 @@ namespace Bunny.Packet.Assembled
                 clients.ForEach(c => c.Send(packet));
             }
         }
-        public static void ResponseStageLeave (List<Client> clients, Muid player)
+        public static void ResponseStageLeave (List<Client> clients, Stage stage, Muid player)
         {
             using (var packet = new PacketWriter(Operation.StageLeave, CryptFlags.Encrypt))
             {
                 packet.Write(player);
+                packet.Write(stage.GetTraits().StageId);
 
                 clients.ForEach(c => c.Send(packet));
             }
@@ -153,7 +157,7 @@ namespace Bunny.Packet.Assembled
                 packet.Write(previous);
                 packet.Write(next);
 
-                packet.Write(stages.Count, 90);
+                packet.Write(stages.Count, 91);
 
                 var traits = from stage in stages
                              select stage.GetTraits();
@@ -166,7 +170,7 @@ namespace Bunny.Packet.Assembled
                     packet.Write(++index);
                     packet.Write(info.Name, 64);
                     packet.Write(Convert.ToByte(info.Players.Count));
-                    packet.Write(info.MaxPlayers);
+                    packet.Write((byte)info.MaxPlayers);
                     packet.Write((Int32)info.State);
                     packet.Write((Int32)info.Gametype);
 
@@ -202,7 +206,8 @@ namespace Bunny.Packet.Assembled
                         packet.Write((Int32)StageType.None);
 
                     packet.Write(Convert.ToByte(info.Master.GetCharacter().Level));
-                    packet.Write(info.Level);
+                    packet.Write((byte)info.Level);
+                    packet.Write((byte)0);
                 }
 
                 client.Send(packet);
@@ -214,10 +219,14 @@ namespace Bunny.Packet.Assembled
             using (var packet = new PacketWriter(Operation.StageResponseSettings, CryptFlags.Encrypt))
             {
                 packet.Write(stageTraits.StageId);
-                packet.Write(1, 69);
+                
+                packet.Write(1, 143);
+
                 packet.Write(stageTraits.StageId);
+                packet.Write(stageTraits.Name, 64);
                 packet.Write(stageTraits.Map, 32);
-                packet.Write(0);
+
+                packet.Write((byte)0);
                 packet.Write((Int32)stageTraits.Gametype);
                 packet.Write(stageTraits.RoundCount);
                 packet.Write((Int32)stageTraits.Time);
@@ -228,6 +237,14 @@ namespace Bunny.Packet.Assembled
                 packet.Write(stageTraits.ForcedEntry);
                 packet.Write(stageTraits.TeamBalanced);
                 packet.Write(stageTraits.RelayEnabled);
+
+                packet.Write((byte)1); // NETCODE
+                packet.Write((byte)0);
+                packet.Write(0); // hp
+                packet.Write(0); // ap
+                packet.Write((byte)0);
+                packet.Write((byte)0);
+                packet.Write((byte)0);
 
                 packet.Write(stageTraits.Players.Count, 16);
                 foreach (var c in stageTraits.Players)

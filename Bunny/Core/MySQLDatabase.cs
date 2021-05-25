@@ -15,6 +15,7 @@ namespace Bunny.Core
     {
         private string _connectionString;
 
+        public int GetIdentity() { return 0; }
         public bool Initialize()
         {
             try
@@ -39,11 +40,8 @@ namespace Bunny.Core
             }
         }
 
-        public int GetIdentity()
+        public int GetIdentity(MySqlConnection conn)
         {
-            using (var conn = new MySqlConnection(_connectionString))
-            {
-                conn.Open();
                 using (var command = new MySqlCommand("SELECT @@identity", conn))
                 {
                     using (var reader = command.ExecuteReader())
@@ -55,7 +53,6 @@ namespace Bunny.Core
                         return Convert.ToInt32(reader[0]);
                     }
                 }
-            }
         }
 
 
@@ -78,13 +75,14 @@ namespace Bunny.Core
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("INSERT INTO account(userid, ugradeid, pgradeid, name, password) VALUES (@user, @ugradeid, @pgradeid, @name, @password)", conn))
+                using (var cmd = new MySqlCommand("INSERT INTO account(userid, access, premium, name, password, email) VALUES (@user, @ugradeid, @pgradeid, @name, @password, @email)", conn))
                 {
                     cmd.Parameters.AddWithValue("user", user);
                     cmd.Parameters.AddWithValue("ugradeid", UGradeId.Registered);
                     cmd.Parameters.AddWithValue("pgradeid", PGradeId.Free);
                     cmd.Parameters.AddWithValue("name", user);
                     cmd.Parameters.AddWithValue("password", password);
+                    cmd.Parameters.AddWithValue("email", "Asd@asd.com");
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -99,7 +97,7 @@ namespace Bunny.Core
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                using (var command = new MySqlCommand("SELECT aid,ugradeid,pgradeid from account WHERE userid=@user AND password=@pass", conn))
+                using (var command = new MySqlCommand("SELECT aid,access as ugradeid,premium as pgradeid from account WHERE userid=@user AND password=@pass", conn))
                 {
                     command.Parameters.AddWithValue("@user", szUser);
                     command.Parameters.AddWithValue("@pass", szPassword);
@@ -177,7 +175,7 @@ namespace Bunny.Core
 
                     command.ExecuteNonQuery();
 
-                    var charId = GetIdentity();
+                    var charId = GetIdentity(conn);
 
                     var id = AddItem(charId, melee[nCostume]);
                     UpdateSlot(charId, ItemSlotType.melee_slot, id);
@@ -294,16 +292,17 @@ namespace Bunny.Core
                         charInfo.Deaths = Convert.ToInt32(reader["DeathCount"]);
                         reader.Close();
 
-                        using (var cmd = new MySqlCommand("SELECT head_slot,chest_slot,hands_slot,legs_slot,Feet_slot,fingerl_slot,fingerr_slot,melee_slot,primary_slot,secondary_slot,custom1_slot,custom2_slot,avatar_slot,community1_slot,community2_slot,longbuff1_slot,longbuff2_slot FROM `character` WHERE CID=@cid", conn))
+                        using (var cmd = new MySqlCommand("SELECT head_slot,chest_slot,hands_slot,legs_slot,Feet_slot,fingerl_slot,fingerr_slot,melee_slot,primary_slot,secondary_slot,custom1_slot,custom2_slot FROM `character` WHERE CID=@cid", conn))
                         {
                             cmd.Parameters.AddWithValue("@cid", charInfo.CharacterId);
                             using (var itemReader = cmd.ExecuteReader())
                             {
-                                while (itemReader.Read())
+                                while(itemReader.Read())
                                 {
-                                    for (int i = 0; i < reader.FieldCount; ++i)
+                                    for (int i = 0; i < itemReader.FieldCount; ++i)
                                     {
                                         charInfo.EquippedItems[i] = new Item();
+
                                         charInfo.EquippedItems[i].ItemCid = Convert.ToInt32(itemReader.IsDBNull(i) ? 0 : itemReader[i]);
                                         charInfo.EquippedItems[i].RentHour = 525600;
                                     }
@@ -339,7 +338,7 @@ namespace Bunny.Core
                             }
                         }
 
-                        using (var itemCmd = new MySqlCommand("SELECT ItemID,CIID,RentHourPeriod,quantity FROM characteritem WHERE CID=@cid", conn))
+                        using (var itemCmd = new MySqlCommand("SELECT ItemID,CIID,RentHourPeriod,cnt as quantity FROM characteritem WHERE CID=@cid", conn))
                         {
                             itemCmd.Parameters.AddWithValue("@cid", charInfo.CharacterId);
                             using (var dataReader = itemCmd.ExecuteReader())
@@ -359,6 +358,9 @@ namespace Bunny.Core
 
                         for (var i = 0; i < 12; i++)
                         {
+                            if (charInfo.EquippedItems[i] == null)
+                                charInfo.EquippedItems[i] = new Item();
+
                             var item = charInfo.Items.Find(ii => ii.ItemCid == charInfo.EquippedItems[i].ItemCid);
                             charInfo.EquippedItems[i].ItemId = item == null ? 0 : item.ItemId;
                         }
@@ -428,7 +430,7 @@ namespace Bunny.Core
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("INSERT INTO characteritem (CID,ItemID,RegDate,Quantity) VALUES (@cid, @itemid, CURDATE(), @count)", conn))
+                using (var cmd = new MySqlCommand("INSERT INTO characteritem (CID,ItemID,RegDate,cnt) VALUES (@cid, @itemid, CURDATE(), @count)", conn))
                 {
                     cmd.Parameters.AddWithValue("@cid", cid);
                     cmd.Parameters.AddWithValue("@itemid", itemid);

@@ -19,7 +19,7 @@ namespace Bunny.Packet.Assembled
                 packet.Write(traits.ChannelId);
                 packet.Write((Int32)traits.Type);
                 packet.Write(traits.ChannelName);
-                packet.Write(true);
+                
 
                 client.Send(packet);
             }
@@ -53,7 +53,7 @@ namespace Bunny.Packet.Assembled
             {
                 packet.Write(playerCount);
                 packet.Write(page);
-                packet.Write(clients.Count, 71);
+                packet.Write(clients.Count, 108);
 
                 foreach (var c in clients)  
                 {
@@ -63,8 +63,11 @@ namespace Bunny.Packet.Assembled
                     packet.Write((byte)c.GetCharacter().Level);
                     packet.Write((Int32)c.ClientPlayer.PlayerLocation);
                     packet.Write((byte)c.ClientPlayer.PlayerAccount.Access);
+                    packet.Write((byte)c.ClientPlayer.PlayerAccount.Access); // pgrade
                     packet.Write((byte)2);
                     packet.Write(c.GetCharacter().ClanId);
+                    packet.Write("", 32); //discord
+                    packet.Write(0); // discord
                     packet.Write(0); //emblem.
                 }
 

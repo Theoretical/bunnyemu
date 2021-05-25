@@ -30,7 +30,7 @@ namespace Bunny.Players
         public Int16 Cr;
         public Int16 Er;
         public Int16 Wr;
-        public Item[] EquippedItems = new Item[17];
+        public Item[] EquippedItems = new Item[12];
         public UGradeId UGrade;
         public Int32 ClanId;
         public List<Item> Items = new List<Item>();

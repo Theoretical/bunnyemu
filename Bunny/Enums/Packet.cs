@@ -278,5 +278,7 @@ namespace Bunny.Enums
         AdminAssassin = 0x21,
         LadderPrepare = 0x62A,
         LadderLaunch = 0x62B,
+
+        P2PRoute = 8012
     }
 }

@@ -311,7 +311,7 @@ namespace Bunny.GameTypes
             }
         }
 
-        public virtual void GameKillCallback (Client killer, Client victim)
+        public virtual void GameKillCallback (Client killer, Client victim, uint weapon)
         {
             victim.ClientPlayer.PlayerStats.Spawned = false;
             if (_gameType == ObjectStageGameType.Training)
@@ -320,7 +320,7 @@ namespace Bunny.GameTypes
                 var args = new Pair<UInt32, UInt32>(0, 0);
                 lock (CurrentStage.ObjectLock)
                 {
-                    Battle.GameDie(CurrentStage.GetTraits().Players, uids, args);
+                    Battle.GameDie(CurrentStage.GetTraits().Players, uids, args, weapon);
                 }
             }
             else
@@ -336,7 +336,7 @@ namespace Bunny.GameTypes
                     var args = new Pair<UInt32, UInt32>((exp << 16), 0);
                     lock (CurrentStage.ObjectLock)
                     {
-                        Battle.GameDie(CurrentStage.GetTraits().Players, uids, args);
+                        Battle.GameDie(CurrentStage.GetTraits().Players, uids, args, weapon);
 
                         //killer.GetCharacter().Level =
                           //  (Int16) ExpManager.GetLevel((Int32) killer.GetCharacter().Xp);

@@ -126,7 +126,7 @@ namespace Bunny.Channels
                                     break;
                                 case "duel":
                                     channel.Rule = ChannelRule.Elite;
-                                    channel.Type = ChannelType.DuelTournament;
+                                    //channel.Type = ChannelType.DuelTournament;
                                     break;
                             }
                             Add(channel);
