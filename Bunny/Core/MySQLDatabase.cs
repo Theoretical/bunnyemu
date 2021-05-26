@@ -515,15 +515,15 @@ namespace Bunny.Core
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("INSERT INTO clan(Name, MasterCID, RegDate) VALUES(@name,@master CURDATE())", conn))
+                using (var cmd = new MySqlCommand("INSERT INTO clan(Name, MasterCID, added_on) VALUES(@name,@master, CURDATE())", conn))
                 {
                     cmd.Parameters.AddWithValue("@name", clanName);
                     cmd.Parameters.AddWithValue("@master", master.GetCharacter().CharacterId);
                     cmd.ExecuteNonQuery();
                 }
 
-                var clanId = GetIdentity();
-                using (var masterCmd = new MySqlCommand("INSERT INTO clanmember(CLID, CID, Grade, RegDate) VALUES (@clid, @cid, @grade, CURDATE())", conn))
+                var clanId = GetIdentity(conn);
+                using (var masterCmd = new MySqlCommand("INSERT INTO clanmember(CLID, CID, Grade, added_on) VALUES (@clid, @cid, @grade, CURDATE())", conn))
                 {
                     masterCmd.Parameters.AddWithValue("@clid", clanId);
                     masterCmd.Parameters.AddWithValue("@cid", master.GetCharacter().CharacterId);
@@ -532,7 +532,7 @@ namespace Bunny.Core
                 }
                 foreach (var member in members)
                 {
-                    using (var memberCmd = new MySqlCommand("INSERT INTO clanmember(CLID, CID, Grade, RegDate) VALUES (@clid, @cid, @grade, NOW())", conn))
+                    using (var memberCmd = new MySqlCommand("INSERT INTO clanmember(CLID, CID, Grade, added_on) VALUES (@clid, @cid, @grade, NOW())", conn))
                     {
                         memberCmd.Parameters.AddWithValue("@clid", clanId);
                         memberCmd.Parameters.AddWithValue("@cid", member.First.GetCharacter().CharacterId);
@@ -641,7 +641,7 @@ namespace Bunny.Core
                         clanInfo.TotalPoints = (Int32)reader["point"];
                         clanInfo.Wins = Convert.ToInt16(reader["wins"]);
                         clanInfo.Losses = Convert.ToInt16(reader["losses"]);
-                        clanInfo.Ranking = (Int32)reader["ranking"];
+                        clanInfo.Ranking = (Int32)reader["totalranking"];
                         clanInfo.EmblemChecksum = reader["emblemurl"] == null ? 0 : 1;
                         var cid = (Int32)reader["mastercid"];
 

@@ -19,16 +19,6 @@ namespace Bunny.Packet.Disassemble
             var masterId = packetReader.ReadMuid();
             var reqeuest = packetReader.ReadInt32();
             var clanName = packetReader.ReadString();
-            var member1 = packetReader.ReadString();
-            var member2 = packetReader.ReadString();
-            var member3 = packetReader.ReadString();
-            var member4 = packetReader.ReadString();
-
-            var members = new List<Pair<Client, bool>>();
-            members.Add(new Pair<Client, bool>(TcpServer.GetClientFromName(member1), false));
-            members.Add(new Pair<Client, bool>(TcpServer.GetClientFromName(member2), false));
-            members.Add(new Pair<Client, bool>(TcpServer.GetClientFromName(member3), false));
-            members.Add(new Pair<Client, bool>(TcpServer.GetClientFromName(member4), false));
 
 
             if (!Globals.AcceptedString.IsMatch(clanName))
@@ -40,38 +30,23 @@ namespace Bunny.Packet.Disassemble
                 return;
             }
 
-            foreach (var member in members)
-            {
-                if (member == null || Globals.GunzDatabase.IsInClan(member.First))
-                {
-                    ClanPackets.ResponseCreateClan(client, Results.ClanUserAlreadyInAClan, reqeuest);
-                    return;
-                }
-            }
+            ClanPackets.ResponseCreateClan(client, Results.Accepted, reqeuest);
 
             var pendingClan = new PendingClan();
             pendingClan.ClanMaster = client;
             pendingClan.ClanName = clanName;
-            pendingClan.RequestId = reqeuest;
-            foreach (var member in members)
-            {
-                pendingClan.Members.Add(member);
-            }
+            pendingClan.Members = new List<Pair<Client, bool>>();
 
-            lock (Globals.PendingClans)
-                Globals.PendingClans.Add(pendingClan);
+            int clanId = Globals.GunzDatabase.CreateClan(clanName, client, new List<Pair<Client, bool>>());
+            client.GetCharacter().ClanName = clanName;
+            client.GetCharacter().ClanId = clanId;
+            client.GetCharacter().ClanGrade = ClanGrade.Master;
 
-            ClanPackets.ResponseCreateClan(client, Results.Accepted, reqeuest);
+            ClanPackets.ResponseAagreedCreateClan(pendingClan);
 
-            var clientList = new List<Client>();
-            foreach (var m in members)
-                clientList.Add(m.First);
-
-            ClanPackets.AskAgreement(clientList, reqeuest, clanName, client.GetMuid(), client.GetCharacter().Name);   
-    
-            var responsetimer = new Timer(30000);
-            responsetimer.Elapsed += (s, o) => CancelRequest(client, pendingClan, responsetimer);
-            responsetimer.Start();
+            ClanPackets.SendMemberList(client);
+            ClanPackets.UpdateClanCharInfo(client);
+            client.GetChannel().AllPlayerList(client);
         }
 
         public static void CancelRequest(Client client, PendingClan clan, Timer timer)
