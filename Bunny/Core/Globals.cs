@@ -26,7 +26,7 @@ namespace Bunny.Core
 
     class Globals
     {
-        public static Configuration Config;
+        public static Config Config;
         public static Regex AcceptedString = new Regex("[a-zA-Z0-9]{3,16}");
         public static MuidWrapper StageCounter = new MuidWrapper();
         public static MapManager Maps;

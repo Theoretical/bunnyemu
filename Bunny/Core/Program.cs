@@ -18,7 +18,7 @@ namespace Bunny.Core
                 Console.BufferWidth = Console.WindowWidth = 128;
                 Console.Title = "Bunny Emu";
 
-                Globals.Config = Configuration.Load();
+                Globals.Config = Config.Load();
                 Log.Initialize();
                 Log.Write("{0}", DateTime.Now.Ticks);
                 Globals.GunzDatabase = new MySQLDatabase();
